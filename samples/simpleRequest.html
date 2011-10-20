@@ -1,0 +1,55 @@
+<!--
+  Copyright (c) 2011 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License"); you may not
+  use this file except in compliance with the License. You may obtain a copy of
+  the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+  License for the specific language governing permissions and limitations under
+  the License.
+
+  To run this sample, replace YOUR API KEY with your application's API key.
+  It can be found at https://code.google.com/apis/console/ under API Access.
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://apis.google.com/js/client.js"></script>
+    <script>
+      function appendInfo(info) {
+        var infoDiv = document.getElementById('info');
+        var infoText = document.createElement('P');
+        infoText.innerHTML = info;
+        infoDiv.appendChild(infoText);
+      }
+
+      function makeRequest() {
+        function requestCallback(response) {
+          appendInfo('Short URL ' + shortUrl + ' expands to ' + response.longUrl);
+        }
+
+        var shortUrl = document.getElementById('shortUrl').value;
+        // Replace your API key here.
+        gapi.client.setApiKey('YOUR API KEY');
+        var request = gapi.client.urlshortener.url.get({
+          'shortUrl': shortUrl
+        });
+        request.execute(requestCallback);
+      }
+    </script>
+  </head>
+  <body onload="gapi.client.load('urlshortener', 'v1');">
+    <p>Enter a short URL and click "Expand URL" to get the full URL.</p>
+    <label for="shortUrl">Short URL </label>
+    <input id="shortUrl" type="text" value="http://goo.gl/fbsS" />
+    <button onclick="makeRequest();">
+      Expand URL
+    </button>
+    <div id="info"></div>
+  </body>
+</html>
