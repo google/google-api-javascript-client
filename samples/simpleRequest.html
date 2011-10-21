@@ -21,16 +21,11 @@
   <head>
     <script src="https://apis.google.com/js/client.js"></script>
     <script>
-      function appendInfo(info) {
-        var infoDiv = document.getElementById('info');
-        var infoText = document.createElement('P');
-        infoText.innerHTML = info;
-        infoDiv.appendChild(infoText);
-      }
-
       function makeRequest() {
-        function requestCallback(response) {
-          appendInfo('Short URL ' + shortUrl + ' expands to ' + response.longUrl);
+        function writeResponse(resp) {
+          var infoDiv = document.getElementById('info');
+          infoDiv.innerHTML = 'Short URL <strong>' + shortUrl +
+              '</strong> expands to <strong>' + resp.longUrl + '</string>';
         }
 
         var shortUrl = document.getElementById('shortUrl').value;
@@ -39,7 +34,7 @@
         var request = gapi.client.urlshortener.url.get({
           'shortUrl': shortUrl
         });
-        request.execute(requestCallback);
+        request.execute(writeResponse);
       }
     </script>
   </head>
