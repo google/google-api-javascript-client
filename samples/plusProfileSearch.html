@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- <script src="https://apis.google.com/js/client.js"></script> -->
+    <script src="http://homebrew.mtv.corp.google.com:7890/js/client.js"></script>
+    <script>
+      window['__GOOGLEAPIS'] = {
+        'googleapis.config': {
+          'proxy': 'https://www.googleapis.com/static/proxy.html'
+        },
+        'xdclient': {
+          'proxy': 'https://www.googleapis.com/static/proxy.html'
+        }
+      };
+    </script>
+    <script>
+      // Request smaller images from photos to save bandwidth
+      function resizeImage(imageUrl) {
+        var lastSlash = imageUrl.lastIndexOf('/');
+        var resizedUrl = imageUrl.substring(0, lastSlash) + '/w256' +
+            imageUrl.substr(lastSlash);
+        return resizedUrl;
+      }
+
+      function makeRequest() {
+        function writeResponse(resp) {
+          var infoDiv = document.getElementById('info');
+          infoDiv.innerHTML = '';
+          if (!resp.items) { return; }
+          var responseTitle = document.createElement('strong');
+          responseTitle.innerHTML = 'Profiles results for ' + query + ':';
+          infoDiv.appendChild(responseTitle);
+
+          for (var i = 0; i < resp.items.length ; i++) {
+            var profileResult = resp.items[i];
+            var profileInfo = document.createElement('P');
+
+            if (profileResult.image && profileResult.image.url) {
+              var profilePic = document.createElement('IMG');
+              profilePic.src = resizeImage(profileResult.image.url);
+              profileInfo.appendChild(profilePic);
+            }
+
+            var profileLink = document.createElement('A');
+            profileLink.style.marginLeft = '5px';
+            profileLink.href = profileResult.url;
+            profileLink.innerHTML = profileResult.displayName;
+            profileInfo.appendChild(profileLink);
+
+            infoDiv.appendChild(profileInfo);
+          }
+        }
+
+        var query = document.getElementById('query').value;
+        gapi.client.setApiKey('AIzaSyBbTNyzNTxN0iiTGnf33kOIombQPU-iEXw');
+        var rpcRequest = gapi.client.plus.people.search({
+          'query': query
+        });
+        rpcRequest.execute(writeResponse);
+      }
+    </script>
+  </head>
+
+  <body onload="gapi.client.load('plus', 'v1');">
+    <p>Enter a query to search Google+ Profiles</p>
+    <label for="query">Query </label>
+    <input id="query" type="text" />
+    <button onclick="makeRequest();">
+      Search Google+ Profiles
+    </button>
+    <div id="info"></div>
+  </body>
+</html>

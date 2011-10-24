@@ -12,6 +12,9 @@
   WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
   License for the specific language governing permissions and limitations under
   the License.
+
+  To run this sample, replace YOUR API KEY with your application's API key.
+  It can be found at https://code.google.com/apis/console/ under API Access.
 -->
 <!DOCTYPE html>
 <html>
@@ -26,6 +29,8 @@
         }
 
         var shortUrl = document.getElementById('shortUrl').value;
+        // Replace your API key here.
+        gapi.client.setApiKey('YOUR API KEY');
         var restRequest = gapi.client.request({
            'path': '/urlshortener/v1/url',
            'params' : {'shortUrl' : shortUrl}
