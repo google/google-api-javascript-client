@@ -20,32 +20,60 @@
 <html>
   <head>
     <meta charset='utf-8' />
-    <script src="https://apis.google.com/js/client.js"></script>
+    <style>
+      #info {
+        border: 1px solid black;
+        padding: 0.25em;
+      }
+    </style>
     <script>
+      // Enter the API key from the Google Develoepr Console - to handle any unauthenticated
+      // requests in the code.
+      // The provided key works for this sample only when run from
+      // https://google-api-javascript-client.googlecode.com/hg/samples/simpleRequest.html
+      // To use in your own application, replace this API key with your own.
+      var apiKey = 'AIzaSyAdjHPT5Pb7Nu56WJ_nlrMGOAgUAtKjiPM';
+
+      function load() {
+        gapi.client.setApiKey(apiKey);
+        gapi.client.load('urlshortener', 'v1', showInputs);
+      }
+
+      function showInputs() {
+        document.getElementById('requestFields').style.display = '';
+      }
+
       function makeRequest() {
         function writeResponse(resp) {
+          var responseText;
+          if (resp.code && resp.data[0].debugInfo == 'QuotaState: BLOCKED') {
+            responseText = 'Invalid API key provided. Please replace the "apiKey" value with your own.';
+          } else {
+            responseText = 'Short URL ' + shortUrl + ' expands to ' + resp.longUrl;
+          }
           var infoDiv = document.getElementById('info');
-          infoDiv.innerHTML = 'Short URL <strong>' + shortUrl +
-              '</strong> expands to <strong>' + resp.longUrl + '</string>';
+          infoDiv.innerHTML = '';
+          infoDiv.appendChild(document.createTextNode(responseText));
         }
 
         var shortUrl = document.getElementById('shortUrl').value;
-        // Replace your API key here.
-        gapi.client.setApiKey('YOUR API KEY');
         var request = gapi.client.urlshortener.url.get({
           'shortUrl': shortUrl
         });
         request.execute(writeResponse);
       }
     </script>
+    <script src="https://apis.google.com/js/client.js?onload=load"></script>
   </head>
-  <body onload="gapi.client.load('urlshortener', 'v1');">
+  <body>
     <p>Enter a short URL and click "Expand URL" to get the full URL.</p>
-    <label for="shortUrl">Short URL </label>
-    <input id="shortUrl" type="text" value="http://goo.gl/fbsS" />
-    <button onclick="makeRequest();">
-      Expand URL
-    </button>
-    <div id="info"></div>
+    <div id="requestFields" style="display:none;">
+      <label for="shortUrl">Short URL </label>
+      <input id="shortUrl" type="text" value="http://goo.gl/fbsS" />
+      <button onclick="makeRequest();">
+        Expand URL
+      </button>
+    </div>
+    <div style="margin-top:0.5em;"><span id="info">Results</span></div>
   </body>
 </html>
