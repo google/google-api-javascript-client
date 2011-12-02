@@ -20,8 +20,22 @@
 <html>
   <head>
     <meta charset='utf-8' />
-    <script src="https://apis.google.com/js/client.js"></script>
     <script>
+      // Enter the API key from the Google Develoepr Console - to handle any unauthenticated
+      // requests in the code.
+      // The provided key works for this sample only when run from
+      // https://google-api-javascript-client.googlecode.com/hg/samples/plusProfileSearch.html
+      // To use in your own application, replace this API key with your own.
+      var apiKey = 'AIzaSyAdjHPT5Pb7Nu56WJ_nlrMGOAgUAtKjiPM';
+
+      function load() {
+        gapi.client.load('plus', 'v1', showSearch);
+      }
+
+      function showSearch() {
+        document.getElementById('queryFields').style.display = '';
+      }
+
       // Request smaller images from photos to save bandwidth
       function resizeImage(imageUrl) {
         var lastSlash = imageUrl.lastIndexOf('/');
@@ -36,7 +50,8 @@
           infoDiv.innerHTML = '';
           if (!resp.items) { return; }
           var responseTitle = document.createElement('strong');
-          responseTitle.innerHTML = 'Profiles results for ' + query + ':';
+          responseTitle.appendChild(
+              document.createTextNode('Profiles results for ' + query + ':'));
           infoDiv.appendChild(responseTitle);
 
           for (var i = 0; i < resp.items.length ; i++) {
@@ -52,7 +67,8 @@
             var profileLink = document.createElement('A');
             profileLink.style.marginLeft = '5px';
             profileLink.href = profileResult.url;
-            profileLink.innerHTML = profileResult.displayName;
+            profileLink.appendChild(
+                document.createTextNode(profileResult.displayName));
             profileInfo.appendChild(profileLink);
 
             infoDiv.appendChild(profileInfo);
@@ -60,22 +76,25 @@
         }
 
         var query = document.getElementById('query').value;
-        gapi.client.setApiKey('YOUR API KEY');
+        gapi.client.setApiKey(apiKey);
         var request = gapi.client.plus.people.search({
           'query': query
         });
         request.execute(writeResponse);
       }
     </script>
+    <script src="https://apis.google.com/js/client.js?onload=load"></script>
   </head>
 
-  <body onload="gapi.client.load('plus', 'v1');">
+  <body>
     <p>Enter a query to search Google+ Profiles</p>
-    <label for="query">Query </label>
-    <input id="query" type="text" />
-    <button onclick="makeRequest();">
-      Search Google+ Profiles
-    </button>
+    <div id="queryFields" style="display:none;">
+      <label for="query">Query </label>
+      <input id="query" type="text" />
+      <button onclick="makeRequest();">
+        Search Google+ Profiles
+      </button>
+    </div>
     <div id="info"></div>
   </body>
 </html>
