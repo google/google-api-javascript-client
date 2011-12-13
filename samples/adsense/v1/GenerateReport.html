@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<!--
+Copyright 2011 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<!--
+This example retrieves a report for the specified ad client.
+
+If you are retrieving 5000 rows or less, please check
+GenerateReportWithPaging.html instead, as the use of paging is recommended
+where possible.
+To get ad clients, run GetAllAdClients.html.
+
+Tags: reports.generate
+
+Author silvano.luciani@gmail.com (Silvano Luciani)
+-->
+
+  <head>
+  <title>Generate report</title>
+  <script type="text/javascript" src="auth.js"></script>
+  <script type="text/javascript" src="util.js"></script>
+  </head>
+  <body>
+    <div id="content"></div>
+
+    <!--Add a button for the user to click to initiate auth sequence -->
+    <button id="authorize-button" style="visibility: hidden">Authorize</button>
+
+    <script type="text/javascript">
+    AD_CLIENT_ID = 'INSERT_THE_AD_CLIENT_ID_HERE';
+    // Now.
+    var endDate = new Date();
+    // Six months ago.
+    var startDate = new Date(endDate.getTime() - 1000 * 60 * 60 * 24 * 180);
+
+    // Gets and renders the data.
+    function makeApiCall() {
+      gapi.client.load('adsense', 'v1', function() {
+        var request = gapi.client.adsense.reports.generate({
+          'startDate': formatDate(startDate),
+          'endDate': formatDate(endDate),
+          'filter': ['AD_CLIENT_ID==' + AD_CLIENT_ID],
+          'metric': ['PAGE_VIEWS', 'AD_REQUESTS', 'AD_REQUESTS_COVERAGE',
+                     'CLICKS', 'AD_REQUESTS_CTR', 'COST_PER_CLICK',
+                     'AD_REQUESTS_RPM'],
+          'dimension': ['MONTH'],
+          'sort': ['MONTH']
+        });
+        var reportTable = document.createElement('table');
+        request.execute(function(resp) {
+          addTableHeaders(reportTable, resp.headers);
+          var rowTotal = resp.rows.length;
+          for (var rowIndex = 0; rowIndex < rowTotal; rowIndex++) {
+            addTableRow(reportTable, resp.rows[rowIndex]);
+          }
+        });
+        document.getElementById('content').appendChild(reportTable);
+      });
+    }
+
+    // Adds headers to the report table.
+    function addTableHeaders(table, headers) {
+      var headerRow = document.createElement('tr');
+      var headersTotal = headers.length;
+      for (var key = 0; key < headersTotal; key++) {
+        var header = headers[key];
+        var headerElem = document.createElement('th');
+        headerElem.appendChild(document.createTextNode(header.name));
+        headerRow.appendChild(headerElem);
+      }
+      table.appendChild(headerRow);
+    }
+
+    // Adds a row to the report table.
+    function addTableRow(table, item) {
+      var row = document.createElement('tr');
+      var colTotal = item.length;
+      for (var colIndex = 0; colIndex < colTotal; colIndex++) {
+        var rowElem = document.createElement('td');
+        rowElem.appendChild(document.createTextNode(
+            item[colIndex]));
+        row.appendChild(rowElem);
+      }
+      table.appendChild(row);
+    }
+    </script>
+    <script type="text/javascript" src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+  </body>
+</html>
+
