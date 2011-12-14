@@ -86,7 +86,7 @@ function handleAuthResult(authResult) {
  * @param {object} event The event that triggered the function.
  */
 function handleAuthClick(event) {
-  gapi.auth.authorize({client_id: CLIENT_ID, scope: SCOPES, immediate: false},
+  gapi.auth.authorize({client_id: CLIENT_ID, scope: SCOPE, immediate: false},
       handleAuthResult);
 }
 
