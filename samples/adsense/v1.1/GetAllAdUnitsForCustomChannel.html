@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<!--
+Copyright 2011 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<!--
+This example gets all ad units corresponding to a specified custom channel.
+To get ad clients, run getAllAdClients.html.
+
+Tags: accounts.customchannels.adunits.list
+
+Author silvano.luciani@gmail.com (Silvano Luciani)
+-->
+
+  <head>
+  <title>Get all ad units for a custom channel.</title>
+  <script type="text/javascript" src="auth.js"></script>
+  </head>
+  <body>
+    <p>Ad clients list:</p>
+    <div id="content"></div>
+
+    <!-- Add a button for the user to click to initiate auth sequence -->
+    <button id="authorize-button" style="visibility: hidden">Authorize</button>
+
+    <script type="text/javascript">
+    MAX_PAGE_SIZE = 50;
+    var accountId = 'INSERT_ACCOUNT_ID_HERE';
+    var adClientId = 'INSERT_AD_CLIENT_ID_HERE';
+    var customChannelId = 'INSERT_CUSTOM_CHANNEL_ID_HERE';
+
+    // Gets and renders the data.
+    function makeApiCall() {
+      gapi.client.load('adsense', 'v1.1', function() {
+        var reqParams = {
+          'accountId': accountId,
+          'adClientId': adClientId,
+          'customChannelId': customChannelId,
+          'maxResults': MAX_PAGE_SIZE
+        };
+        var adUnitsList = document.createElement('ul');
+        executeRequest(reqParams, adUnitsList);
+        document.getElementById('content').appendChild(adUnitsList);
+      });
+    }
+
+    // Executes the requests and appends results to the list.
+    function executeRequest(reqParams, list) {
+      var request = gapi.client.adsense.accounts.customchannels.adunits.list(
+          reqParams);
+      request.execute(function(resp) {
+        var itemsTotal = resp.items.length;
+        for (var itemIndex = 0; itemIndex < itemsTotal; itemIndex++) {
+          var listItem = document.createElement('li');
+          var item = resp.items[itemIndex];
+          var text = 'Ad unit with code "' + item.code + '", name "' +
+              item.name + '" and status "' + item.status + '" was found.';
+          listItem.appendChild(document.createTextNode(text));
+          list.appendChild(listItem);
+        }
+        if(resp.nextPageToken) {
+          reqParams.nextPageToken = resp.nextPageToken;
+          executeRequest(reqParams, list);
+        }
+      });
+    }
+    </script>
+    <script type="text/javascript" src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+  </body>
+</html>
+

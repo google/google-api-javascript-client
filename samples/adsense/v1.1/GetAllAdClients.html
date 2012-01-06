@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<!--
+Copyright 2011 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<!--
+This example gets all ad clients for an account.
+
+Tags: adclients.list
+
+Author silvano.luciani@gmail.com (Silvano Luciani)
+-->
+
+  <head>
+  <title>Get all ad clients.</title>
+  <script type="text/javascript" src="auth.js"></script>
+  </head>
+  <body>
+    <p>Ad clients list:</p>
+    <div id="content"></div>
+
+    <!--Add a button for the user to click to initiate auth sequence -->
+    <button id="authorize-button" style="visibility: hidden">Authorize</button>
+
+    <script type="text/javascript">
+    // Gets and renders the data.
+    function makeApiCall() {
+      gapi.client.load('adsense', 'v1.1', function() {
+        var request = gapi.client.adsense.adclients.list({
+          'maxResults': '5000'
+        });
+        request.execute(function(resp) {
+          var clientsList = document.createElement('ol');
+          var itemsTotal = resp.items.length;
+          for (var key = 0; key < itemsTotal; key++) {
+            var client = resp.items[key];
+            addClient(clientsList, client)
+          }
+          document.getElementById('content').appendChild(clientsList);
+        });
+      });
+    }
+
+    // Formats one line of the clients list.
+    function addClient(clientsList, client) {
+      var label = document.createElement('li');
+      var labelString = document.createTextNode(
+          'Ad client for product "' + client.productCode + '" with ID "' +
+          client.id + '" was found.');
+      label.appendChild(labelString);
+      var features = document.createElement('ul');
+      var reporting = document.createElement('li');
+      var reportingString = document.createTextNode(
+          'Support reporting: ' + (client.supportsReporting ? 'yes' : 'no'));
+      reporting.appendChild(reportingString);
+      features.appendChild(reporting);
+      label.appendChild(features);
+      clientsList.appendChild(label);
+    }
+    </script>
+    <script type="text/javascript" src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+  </body>
+</html>
+

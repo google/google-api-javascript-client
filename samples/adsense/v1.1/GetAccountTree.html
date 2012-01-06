@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<!--
+Copyright 2011 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<!--
+This example gets a specific account for the logged in user.
+This includes the full tree of sub-accounts.
+
+Tags: accounts.get
+
+Author silvano.luciani@gmail.com (Silvano Luciani)
+-->
+
+  <head>
+  <title>Get accounts tree.</title>
+  <script type="text/javascript" src="auth.js"></script>
+  <script type="text/javascript" src="jquery.js"></script>
+  <script type="text/javascript" src="jquery.jstree.js"></script>
+  </head>
+  <body>
+    <div id="content"></div>
+
+    <!-- Add a button for the user to click to initiate auth sequence -->
+    <button id="authorize-button" style="visibility: hidden">Authorize</button>
+
+    <script type="text/javascript">
+    var accountId = 'INSERT_ACCOUNT_ID_HERE';
+
+    // Gets and renders the data.
+    function makeApiCall() {
+      gapi.client.load('adsense', 'v1.1', function() {
+        var request = gapi.client.adsense.accounts.get({
+          'accountId': accountId,
+          'tree': true
+        });
+        request.execute(function(resp) {
+          var data = [];
+          buildJsonTree(resp, data);
+          displayAccountsTree(data);
+        });
+      });
+    }
+
+    // Displays the tree.
+    function displayAccountsTree(data) {
+      $("#content").jstree({
+        "json_data" : {"data" : data},
+        "plugins" : [ "themes", "json_data", "ui" ]
+      });
+
+    }
+
+    // Builds the JSON tree for jsTree.
+    function buildJsonTree(account, parent) {
+      var node = {'data': account.name};
+      if (typeof(account.subAccounts) != "undefined") {
+        var childrenArray = [];
+        var childrenTotal = account.subAccounts.length;
+        for (var i=0; i<childrenTotal; i++) {
+          var children = account.subAccounts[i];
+          buildJsonTree(children, childrenArray);
+        }
+        node.children = childrenArray;
+      }
+      parent.push(node);
+    }
+
+    </script>
+    <script type="text/javascript" src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+  </body>
+</html>
+

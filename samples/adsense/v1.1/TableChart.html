@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<!--
+Copyright 2011 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<!--
+Generates a Table using the AdSense Management API and the
+Google Chart Tools.
+
+Author silvano.luciani@gmail.com (Silvano Luciani)
+-->
+
+  <head>
+    <title>Table Chart Example</title>
+    <script type="text/javascript" src="auth.js"></script>
+    <script type="text/javascript" src="util.js"></script>
+    <script type="text/javascript"
+      src='https://www.google.com/jsapi?autoload={"modules":[{"name":"visualization","version":"1"}]}'>
+    </script>
+  </head>
+  <body>
+    <div id="vis_div" style="width: 600px; height: 400px;"></div>
+
+    <!-- Add a button for the user to click to initiate auth sequence -->
+    <button id="authorize-button" style="visibility: hidden">Authorize</button>
+
+    <script type="text/javascript">
+    // Now.
+    var endDate = new Date();
+    // Six months ago.
+    var startDate = new Date(endDate.getTime() - 1000 * 60 * 60 * 24 * 180);
+
+    // Gets and renders the data.
+    function makeApiCall() {
+      gapi.client.load('adsense', 'v1.1', function() {
+        var request = gapi.client.adsense.reports.generate({
+          'startDate': formatDate(startDate),
+          'endDate': formatDate(endDate),
+          'metric': ['AD_REQUESTS', 'MATCHED_AD_REQUESTS',
+                     'INDIVIDUAL_AD_IMPRESSIONS'],
+          'dimension': ['AD_CLIENT_ID'],
+          'sort': ['AD_CLIENT_ID']
+        });
+
+        request.execute(function(resp) {
+          var data = new google.visualization.DataTable();
+          data.addColumn('string', 'Month');
+          data.addColumn('string', 'AD_REQUESTS');
+          data.addColumn('string', 'MATCHED_AD_REQUESTS');
+          data.addColumn('string', 'INVIDUAL_AD_IMPRESSIONS');
+          data.addRows(resp.rows);
+          var view = new google.visualization.DataView(data);
+          view.setColumns([
+            0,
+            {calc:adReqToNumber, type:'number', label:'Ad requests'},
+            {calc:matchedAdReqToNumber, type:'number',
+                label:'Matched ad requests'},
+            {calc:indAdImpressionsToNumber, type:'number',
+                label:'Individual ad impressions'}
+          ]);
+          drawVisualization(view);
+        });
+
+      });
+
+    }
+
+    // Converts the ad request field to numeric values.
+    function adReqToNumber(dataTable, rowNum){
+      return parseInt(dataTable.getValue(rowNum, 1));
+    }
+
+    // Converts the matched ad request field to numeric values.
+    function matchedAdReqToNumber(dataTable, rowNum){
+      return parseInt(dataTable.getValue(rowNum, 2));
+    }
+
+    // Converts the indivudual ad impressions field to numeric values.
+    function indAdImpressionsToNumber(dataTable, rowNum){
+      return parseInt(dataTable.getValue(rowNum, 3));
+    }
+
+    // Draws the table.
+    function drawVisualization(view) {
+      var wrapper = new google.visualization.ChartWrapper({
+        chartType: 'Table',
+        dataTable: view,
+        containerId: 'vis_div'
+      });
+      wrapper.draw();
+    }
+    </script>
+    <script type="text/javascript" src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+  </body>
+</html>
+
