@@ -35,7 +35,7 @@ Author silvano.luciani@gmail.com (Silvano Luciani)
   <body>
     <div id="vis_div" style="width: 600px; height: 400px;"></div>
 
-    <!--Add a button for the user to click to initiate auth sequence -->
+    <!-- Add a button for the user to click to initiate auth sequence -->
     <button id="authorize-button" style="visibility: hidden">Authorize</button>
 
     <script type="text/javascript">
@@ -53,7 +53,7 @@ Author silvano.luciani@gmail.com (Silvano Luciani)
           'metric': ['PAGE_VIEWS', 'AD_REQUESTS', 'MATCHED_AD_REQUESTS',
                      'INDIVIDUAL_AD_IMPRESSIONS'],
           'dimension': ['MONTH'],
-          'sort': ['MONTH'],
+          'sort': ['MONTH']
         });
 
         request.execute(function(resp) {

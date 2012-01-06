@@ -35,14 +35,14 @@ Author silvano.luciani@gmail.com (Silvano Luciani)
   <body>
     <div id="vis_div" style="width: 600px; height: 400px;"></div>
 
-    <!--Add a button for the user to click to initiate auth sequence -->
+    <!-- Add a button for the user to click to initiate auth sequence -->
     <button id="authorize-button" style="visibility: hidden">Authorize</button>
 
     <script type="text/javascript">
     // Now.
     var endDate = new Date();
     // Six months ago.
-    var startDate = new Date(endDate.getTime - 1000 * 60 * 60 * 24 * 180);
+    var startDate = new Date(endDate.getTime() - 1000 * 60 * 60 * 24 * 180);
     // Gets and renders the data.
     function makeApiCall() {
       gapi.client.load('adsense', 'v1', function() {
@@ -51,7 +51,7 @@ Author silvano.luciani@gmail.com (Silvano Luciani)
           'endDate': formatDate(endDate),
           'metric': ['AD_REQUESTS'],
           'dimension': ['AD_CLIENT_ID'],
-          'sort': ['AD_CLIENT_ID'],
+          'sort': ['AD_CLIENT_ID']
         });
 
         request.execute(function(resp) {

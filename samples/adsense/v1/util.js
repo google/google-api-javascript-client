@@ -28,7 +28,7 @@
 function formatDate(date) {
   var dateArr = [String(date.getFullYear())];
   dateArr.push(getTwoDigitString(date.getMonth()));
-  dateArr.push(getTwoDigitString(date.getDay()));
+  dateArr.push(getTwoDigitString(date.getDate()));
   return dateArr.join('-');
 }
 

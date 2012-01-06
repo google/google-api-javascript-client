@@ -33,7 +33,7 @@ Author silvano.luciani@gmail.com (Silvano Luciani)
     <p>Ad clients list:</p>
     <div id="content"></div>
 
-    <!--Add a button for the user to click to initiate auth sequence -->
+    <!-- Add a button for the user to click to initiate auth sequence -->
     <button id="authorize-button" style="visibility: hidden">Authorize</button>
 
     <script type="text/javascript">
@@ -41,7 +41,7 @@ Author silvano.luciani@gmail.com (Silvano Luciani)
     function makeApiCall() {
       gapi.client.load('adsense', 'v1', function() {
         var request = gapi.client.adsense.adclients.list({
-          'maxResults': '5000',
+          'maxResults': '5000'
         });
         request.execute(function(resp) {
           var clientsList = document.createElement('ol');

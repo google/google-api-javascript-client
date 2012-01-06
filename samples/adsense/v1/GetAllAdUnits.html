@@ -33,7 +33,7 @@ Author silvano.luciani@gmail.com (Silvano Luciani)
     <p>Ad units list:</p>
     <div id="content"></div>
 
-    <!--Add a button for the user to click to initiate auth sequence -->
+    <!-- Add a button for the user to click to initiate auth sequence -->
     <button id="authorize-button" style="visibility: hidden">Authorize</button>
 
     <script type="text/javascript">
@@ -44,7 +44,7 @@ Author silvano.luciani@gmail.com (Silvano Luciani)
       gapi.client.load('adsense', 'v1', function() {
         var request = gapi.client.adsense.adunits.list({
           'adClientId': adClientId,
-          'maxResults': '5000',
+          'maxResults': '5000'
         });
         request.execute(function(resp) {
           var unitsList = document.createElement('ol');

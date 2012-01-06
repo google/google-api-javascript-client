@@ -34,7 +34,7 @@ Author silvano.luciani@gmail.com (Silvano Luciani)
     <p>Custom channels list:</p>
     <div id="content"></div>
 
-    <!--Add a button for the user to click to initiate auth sequence -->
+    <!-- Add a button for the user to click to initiate auth sequence -->
     <button id="authorize-button" style="visibility: hidden">Authorize</button>
 
     <script type="text/javascript">
@@ -45,7 +45,7 @@ Author silvano.luciani@gmail.com (Silvano Luciani)
       gapi.client.load('adsense', 'v1', function() {
         var request = gapi.client.adsense.customchannels.list({
           'adClientId': adClientId,
-          'maxResults': '5000',
+          'maxResults': '5000'
         });
         request.execute(function(resp) {
           var customChannelsList = document.createElement('ol');
@@ -59,7 +59,7 @@ Author silvano.luciani@gmail.com (Silvano Luciani)
       });
     }
 
-    //Formats one line of the custom channels list.
+    // Formats one line of the custom channels list.
     function addCustomChannel(customChannelsList, customChannel) {
       var label = document.createElement('li');
       var labelString = document.createTextNode(

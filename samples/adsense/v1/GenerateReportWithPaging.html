@@ -69,6 +69,7 @@ Author silvano.luciani@gmail.com (Silvano Luciani)
       });
     }
 
+    // Executes the request recursively.
     function executeRequest(reqParams, startIndex, reportTable) {
       reqParams.startIndex = startIndex;
       request = gapi.client.adsense.reports.generate(reqParams);
