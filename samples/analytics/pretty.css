@@ -1,0 +1,36 @@
+body {
+  font-family: 'Cantarell', arial, serif;
+  margin: 0 0 0 20px;
+}
+a, pre {
+  font-family: Inconsolata;
+}
+h1 {
+  background-color: #666;
+  color: #fff;
+  margin-top: 0;
+  margin-left: -20px;
+  padding: 20px 0 5px 20px;
+  border-bottom: 3px solid black;
+}
+#ga-table > li {
+  list-style-type: none;
+  overflow: hidden;
+}
+#ga-table > li > * {
+  display: block;
+  float: left;
+  margin: 0;
+  padding: 5px;
+}
+
+.c1, .c2 {
+  width: 90px;
+}
+input {
+  display: block;
+}
+.note {
+  margin-left: 10px !important;
+  color: #777;
+}
