@@ -200,22 +200,26 @@ function printTotalsForAllResults(results) {
 function printRows(results) {
   output.push('<h3>All Rows Of Data</h3>');
 
-  var table = ['<table>'];
+  if (results.rows && results.rows.length) {
+    var table = ['<table>'];
 
-  // Put headers in table.
-  table.push('<tr>');
-  for (var i = 0, header; header = results.columnHeaders[i]; ++i) {
-    table.push('<th>', header.name, '</th>');
+    // Put headers in table.
+    table.push('<tr>');
+    for (var i = 0, header; header = results.columnHeaders[i]; ++i) {
+      table.push('<th>', header.name, '</th>');
+    }
+    table.push('</tr>');
+
+    // Put cells in table.
+    for (var i = 0, row; row = results.rows[i]; ++i) {
+      table.push('<tr><td>', row.join('</td><td>'), '</td></tr>');
+    }
+    table.push('</table>');
+
+    output.push(table.join(''));
+  } else {
+    output.push('<p>No rows found.</p>');
   }
-  table.push('</tr>');
-
-  // Put cells in table.
-  for (var i = 0, row; row = results.rows[i]; ++i) {
-    table.push('<tr><td>', row.join('</td><td>'), '</td></tr>');
-  }
-  table.push('</table>');
-
-  output.push(table.join(''));
 }
 
 

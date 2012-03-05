@@ -150,8 +150,8 @@ function queryCoreReportingApi(profileId) {
   updatePage('Querying Core Reporting API.');
   gapi.client.analytics.data.ga.get({
     'ids': 'ga:' + profileId,
-    'start-date': '2012-01-01',
-    'end-date': '2012-01-15',
+    'start-date': lastNDays(14),
+    'end-date': lastNDays(0),
     'metrics': 'ga:visits',
     'dimensions': 'ga:source,ga:keyword',
     'sort': '-ga:visits,ga:source',
@@ -170,28 +170,32 @@ function queryCoreReportingApi(profileId) {
  */
 function handleCoreReportingResults(response) {
   if (!response.code) {
-    var output = [];
+    if (response.rows && response.rows.length) {
+      var output = [];
 
-    // Profile Name.
-    output.push('Profile Name: ', response.profileInfo.profileName, '<br>');
+      // Profile Name.
+      output.push('Profile Name: ', response.profileInfo.profileName, '<br>');
 
-    var table = ['<table>'];
+      var table = ['<table>'];
 
-    // Put headers in table.
-    table.push('<tr>');
-    for (var i = 0, header; header = response.columnHeaders[i]; ++i) {
-      table.push('<th>', header.name, '</th>');
+      // Put headers in table.
+      table.push('<tr>');
+      for (var i = 0, header; header = response.columnHeaders[i]; ++i) {
+        table.push('<th>', header.name, '</th>');
+      }
+      table.push('</tr>');
+
+      // Put cells in table.
+      for (var i = 0, row; row = response.rows[i]; ++i) {
+        table.push('<tr><td>', row.join('</td><td>'), '</td></tr>');
+      }
+      table.push('</table>');
+
+      output.push(table.join(''));
+      outputToPage(output.join(''));
+    } else {
+      outputToPage('No results found.');
     }
-    table.push('</tr>');
-
-    // Put cells in table.
-    for (var i = 0, row; row = response.rows[i]; ++i) {
-      table.push('<tr><td>', row.join('</td><td>'), '</td></tr>');
-    }
-    table.push('</table>');
-
-    output.push(table.join(''));
-    outputToPage(output.join(''));
   } else {
     updatePage('There was an error querying core reporting API: ' +
         response.message);
@@ -219,3 +223,30 @@ function outputToPage(output) {
 function updatePage(output) {
   document.getElementById('output').innerHTML += '<br>' + output;
 }
+
+
+/**
+ * Utility method to return the lastNdays from today in the format yyyy-MM-dd.
+ * @param {Number} n The number of days in the past from tpday that we should
+ *     return a date. Value of 0 returns today.
+ */
+function lastNDays(n) {
+  var today = new Date();
+  var before = new Date();
+  before.setDate(today.getDate() - n);
+
+  var year = before.getFullYear();
+
+  var month = before.getMonth() + 1;
+  if (month < 10) {
+    month = '0' + month;
+  }
+
+  var day = before.getDate();
+  if (day < 10) {
+    day = '0' + day;
+  }
+
+  return [year, month, day].join('-');
+}
+
