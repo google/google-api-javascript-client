@@ -57,31 +57,53 @@ function checkAuth() {
 
 /**
  * Handler that is called once the script has checked to see if the user has
- * authorized access to their Google Analytics data. Depending on the
- * authorization status, the UI is updated accordingly. If the user is
- * authorized, makeApiCall is executed.
+ * authorized access to their Google Analytics data. If the user has authorized
+ * access, the analytics api library is loaded and the handleAuthorized
+ * function is executed. If the user has not authorized access to their data,
+ * the handleUnauthorized function is executed.
  * @param {Object} authResult The result object returned form the authorization
  *     service that determine whether the user has currently authorized access
- *     to their data.
+ *     to their data. If it exists, the user has authorized access.
  */
 function handleAuthResult(authResult) {
   if (authResult) {
-    var authorizeButton = document.getElementById('authorize-button');
-    var runDemoButton = document.getElementById('run-demo-button');
-
-    authorizeButton.style.visibility = 'hidden';
-    runDemoButton.style.visibility = '';
-    runDemoButton.onclick = makeApiCall;
-    outputToPage('Click the Run Demo button to begin.');
+    gapi.client.load('analytics', 'v3', handleAuthorized);
   } else {
-    var authorizeButton = document.getElementById('authorize-button');
-    var runDemoButton = document.getElementById('run-demo-button');
-
-    runDemoButton.style.visibility = 'hidden';
-    authorizeButton.style.visibility = '';
-    authorizeButton.onclick = handleAuthClick;
-    outputToPage('Please authorize this script to access Google Analytics.');
+    handleUnAuthorized();
   }
+}
+
+
+/**
+ * Updates the UI once the user has authorized this script to access their
+ * data. This changes the visibiilty on some buttons and adds the
+ * makeApiCall click handler to the run-demo-button.
+ */
+function handleAuthorized() {
+  var authorizeButton = document.getElementById('authorize-button');
+  var runDemoButton = document.getElementById('run-demo-button');
+
+  authorizeButton.style.visibility = 'hidden';
+  runDemoButton.style.visibility = '';
+  runDemoButton.onclick = makeApiCall;
+  outputToPage('Click the Run Demo button to begin.');
+}
+
+
+/**
+ * Updates the UI if a user has not yet authorized this script to access
+ * their Google Analytics data. This function changes the visibility of
+ * some elements on the screen. It also adds the handleAuthClick
+ * click handler to the authorize-button.
+ */
+function handleUnauthorized() {
+  var authorizeButton = document.getElementById('authorize-button');
+  var runDemoButton = document.getElementById('run-demo-button');
+
+  runDemoButton.style.visibility = 'hidden';
+  authorizeButton.style.visibility = '';
+  authorizeButton.onclick = handleAuthClick;
+  outputToPage('Please authorize this script to access Google Analytics.');
 }
 
 

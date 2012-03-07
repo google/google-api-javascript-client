@@ -21,19 +21,13 @@
  * @author api.nickm@gmail.com (Nick Mihailovski)
  */
 
- /**
-  * Loads the Google Analytics client library. Once complete, the client object
-  * will exist in gapi.client.analytics and queryAccounts is executed.
-  */
- function makeApiCall() {
-   gapi.client.load('analytics', 'v3', queryAccounts);
- }
-
 /**
  * Executes a query to the Management API to retrieve all the users accounts.
- * Once complete, handleAccounts is executed.
+ * Once complete, handleAccounts is executed. Note: A user must have gone
+ * through the Google APIs authorization routine and the Google Anaytics
+ * client library must be loaded before this function is called.
  */
-function queryAccounts() {
+function makeApiCall() {
   outputToPage('Querying Accounts.');
   gapi.client.analytics.management.accounts.list().execute(handleAccounts);
 }

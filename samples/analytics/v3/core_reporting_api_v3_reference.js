@@ -30,19 +30,12 @@ document.getElementById('end-date').value = lastNDays(0);
 
 
 /**
- * Loads the Google Analytics client library. Once complete, the client object
- * will exist in gapi.client.analytics and queryCoreReportingApi is executed.
+ * Executes a Core Reporting API query to retrieve the top 25 organic search
+ * terms. Once complete, handleCoreReportingResults is executed. Note: A user
+ * must have gone through the Google APIs authorization routine and the Google
+ * Anaytics client library must be loaded before this function is called.
  */
 function makeApiCall() {
-  gapi.client.load('analytics', 'v3', queryCoreReportingApi);
-}
-
-
-/**
- * Executes a Core Reporting API query to retrieve the top 25 organic search
- * terms. Once complete, handleCoreReportingResults is executed.
- */
-function queryCoreReportingApi() {
   gapi.client.analytics.data.ga.get({
     'ids': document.getElementById('table-id').value,
     'start-date': document.getElementById('start-date').value,
