@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <title>External issue #6</title>
+    <script>
+      // External JSC Test
+      var API_KEY = 'AIzaSyAjUuIYvtq2uNudxnnDlFvaQBcfw-fWuRQ';
+      var CLIENT_ID = '142810797254-hrlfpalkm629scejnjkqdmrgn7u2opqh';
+      var SCOPES = 'https://www.googleapis.com/auth/tasks';
+      function authInit() {
+        gapi.client.setApiKey(API_KEY);
+        window.setTimeout(checkAuth,1);
+      }
+
+      function checkAuth() {
+        gapi.auth.authorize({
+          client_id: CLIENT_ID,
+          scope: SCOPES,
+          immediate: true
+        }, handleAuthResult);
+      }
+
+      function handleAuthResult(authResult) {
+        var authorizeButton = document.getElementById('authorize-button');
+        var tasksView = document.getElementById('tasksView');
+        if (authResult) {
+          authorizeButton.style.display = 'none';
+          tasksView.style.display = '';
+        } else {
+          tasksView.style.display = 'none';
+          authorizeButton.style.display = '';
+          authorizeButton.onclick = handleAuthClick;
+        }
+      }
+
+      function handleAuthClick(event) {
+        gapi.auth.authorize({
+          client_id: CLIENT_ID,
+          scope: SCOPES,
+          immediate: false
+        }, handleAuthResult);
+        return false;
+      }
+
+      function addLogItem(text) {
+        var log = document.getElementById('log');
+        var logItem = document.createElement('p');
+        logItem.appendChild(document.createTextNode(text));
+        log.appendChild(logItem);
+      };
+
+      var tasklistId;
+      var taskId;
+
+      function listTasklists() {
+        gapi.client.request({
+          'path': '/tasks/v1/users/@me/lists',
+          'callback': handleListTasklists
+        });
+      }
+
+      function handleListTasklists(response) {
+        var tasklists = response && response.items;
+        if (!tasklists || !tasklists.length) { throw('no tasklists'); }
+
+        tasklistId = tasklists[0].id;
+        addLogItem('Using tasklist ID: ' + tasklistId);
+        createTask();
+      }
+
+      function createTask() {
+        gapi.client.request({
+          'path': '/tasks/v1/lists/' + tasklistId + '/tasks',
+          'method': 'POST',
+          'body': JSON.stringify({
+              'title': 'Test Task'
+            }),
+          'callback': handleCreateTask
+        });
+      };
+
+      function handleCreateTask(response) {
+        if (!response || !response.id) { throw('Failed to create task'); }
+
+        addLogItem('Created task.')
+        addLogItem('Title: ' + response.title + ', ID: ' + response.id);
+        taskId = response.id
+        deleteTask();
+      }
+
+      function deleteTask() {
+        if (!taskId) { throw('no task to delete'); }
+
+        gapi.client.request({
+          'path': '/tasks/v1/lists/' + tasklistId + '/tasks/' + taskId,
+          'method': 'DELETE',
+          'callback': handleDeleteTask
+        });
+      }
+
+      function handleDeleteTask(response) {
+        if (!response) {
+          // No news is good news.
+          addLogItem('Task ' + taskId + ' successfully deleted.');
+        }
+      }
+
+    </script>
+    <script src="https://apis.google.com/js/client.js?onload=authInit"></script>
+  </head>
+  <body>
+    <button id="authorize-button" style="display:none;">Authorize</button>
+    <div id="tasksView" style="display:none;">
+      <button id="deleteTask" onclick="listTasklists();">Delete Task</button>
+      <span id="log">
+      </span>
+    </div>
+  </body>
+</html>
