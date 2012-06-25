@@ -1,0 +1,904 @@
+<!--
+Google IO 2012 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Google IO 2012</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="logoslide nobackground">
+    <article class="flexbox vcenter">
+      <span><img src="images/google_developers_logo.png"></span>
+    </article>
+  </slide>
+
+  <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="images/google_developers_icon_128.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Google APIs</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Google provides REST APIs for many of its products and services</li>
+        <li>Google+, Calendar, Analytics, and 34 more Discovery-based APIs</li>
+        <li>Requests made to https://www.googleapis.com, Google's API frontend</li>
+      </ul>
+      <code>GET https://www.googleapis.com/urlshortener/v1/url?shortUrl=http://goo.gl/fbsS</code>
+    </article>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>API Clients</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>For ease of access, Google provides API clients in many languages</li>
+        <li>Google maintains nine clients including JavaScript, Java, Objective-C, and Python</li>
+        <li><a href="https://developers.google.com/+/downloads/">Google's API Clients</a></li>
+      </ul>
+    </article>
+  </slide>
+
+  <!-- <slide>
+    <hgroup>
+      <h2>Google APIs JavaScript Client</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Browsers have unique limitation: Cannot make cross-domain requests</li>
+        <li>JS Client provides cross-domain access to https://www.googleapis.com from your site</li>
+        <li>Built-in auth mechanism to perform OAuth 2.0 authorization for your app</li>
+      </ul>
+    </article>
+  </slide> -->
+
+  <slide>
+    <hgroup>
+      <h2>Previously: Google APIs from Web Server</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/photos-codelab-0.png" alt="Google APIs from Web Server" title="Google APIs from Web Server">
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Google APIs from JavaScript and HTML</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/photos-codelab-1.png" alt="Google APIs JavaScript Client" title="Google APIs JavaScript Client">
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Demo</h2>
+      <h3>The Code</h3>
+    </hgroup>
+    <article class="smaller">
+<pre class="prettyprint" data-lang="javascript">
+var apiKey = 'AIzaSyAdjHPT5Pb7Nu56WJ_nlrMGOAgUAtKjiPM';
+
+function load() {
+  gapi.client.setApiKey(apiKey);
+  gapi.client.load('urlshortener', 'v1', makeRequest);
+}
+
+function makeRequest() {
+  function handleResponse(resp) {
+    console.log(resp);
+  }
+
+  var request = gapi.client.urlshortener.url.get({
+    'shortUrl': 'http://goo.gl/fbsS'
+  });
+  request.execute(handleResponse);
+}
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Demo</h2>
+      <h3>In Action</h3>
+    </hgroup>
+    <article>
+      <iframe src="http://www.corp.google.com/~obrien/no_crawl/html/jsclient/quickDemoIO.html"
+          style="height:250px;">
+      </iframe>
+    </article>
+  </slide>
+
+  <!-- Segue to About the Client -->
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="images/google_developers_icon_128.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>Google APIs JavaScript Client</h2>
+      <h3>About the Client</h3>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Compatibility</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Supported Browsers</li>
+        <ul>
+          <li>Chrome 8+</li>
+          <li>Firefox 3.5+</li>
+          <li>MSIE 8+</li>
+          <li>Safari 4+</li>
+        </ul>
+        <li>Supported Authorization Protocols</li>
+        <ul>
+          <li>OAuth 2.0</li>
+        </ul>
+        <li>Supported APIs</li>
+        <ul>
+          <li><a href="https://code.google.com/apis/explorer">Google's API Explorer</a></li>
+        </ul>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>What Does the Client Provide?</h2>
+      <h3>JSON-RPC API</h3>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Pros: Easier to use, easy batching, less verbose</li>
+        <li>Cons: Provides fewer request options</li>
+      </ul>
+<pre class="prettyprint" data-lang="javascript">
+var request = gapi.client.urlshortener.url.get({
+  'shortUrl': 'http://goo.gl/fbsS'
+});
+request.execute(handleResponse);
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>What Does the Client Provide?</h2>
+      <h3>REST API</h3>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Pros: Flexible, provides more options, REST may be familiar</li>
+        <li>Cons: More complex, more verbose</li>
+      </ul>
+<pre class="prettyprint" data-lang="javascript">
+var restRequest = gapi.client.request({
+   'path': '/urlshortener/v1/url',
+   'params' : {'shortUrl' : 'http://goo.gl/fbsS'}
+});
+restRequest.execute(handleResponse);
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>What Does the Client Provide?</h2>
+      <h3>OAuth 2.0 Authentication and Authorization</h3>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Interface to authenticate user and authorize app</li>
+        <li>Provide Client ID to identify app, and set of scopes to request. Get Access Token back</li>
+        <li>Access token automatically sent with all requests</li>
+      </ul>
+<pre class="prettyprint" data-lang="javascript">
+var clientId = '837050751313';
+var scopes = 'https://www.googleapis.com/auth/calendar';
+gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
+</pre>
+      <a href="https://code.google.com/p/google-api-javascript-client/wiki/Authentication">
+        JS Client Auth Documentation
+      </a>
+    </article>
+  </slide>
+
+  <!-- Segue to Using the JS Client -->
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="images/google_developers_icon_128.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2 class="centered">Using the Google APIs JavaScript Client</h2>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Before you Begin</h2>
+      <h3>API Console</h3>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Introduction to the API Console, where you</li>
+        <ul>
+          <li>Create an API key and Client ID to identify your app</li>
+          <li>Activate APIs your app needs to access</li>
+          <li>Advanced features: Quota, billing, team management</li>
+        </ul>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Before you Begin</h2>
+      <h3>API Explorer and Documentation</h3>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Starting point for documentation</li>
+        <li>Learn about individual APIs</li>
+        <li>Try API calls directly from the explorer</li>
+        <li><a href="https://code.google.com/apis/explorer">API Explorer</a></li>
+        <li>Demo short URL: http://goo.gl/fbsS</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Loading the JS Client</h2>
+    </hgroup>
+    <article>
+      <p>
+        The JS Client loads asynchronously in two phases. Use the <code>?onload</code> parameter
+        to use the client once it has finished loading.
+      </p>
+      <p>The URL for the JS Client is <code>https://apis.google.com/js/client.js</code></p>
+      <pre class="prettyprint" data-lang="html">
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;script&gt;
+      <b>function init() {
+        // Use the JS Client
+      }</b>
+    &lt;/script&gt;
+    &lt;script src="<b>https://apis.google.com/js/client.js?onload=init</b>"&gt;
+    &lt;/script&gt;
+  &lt;/head&gt;
+&lt;/html&gt;</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Making a JSON-RPC Request</h2>
+      <h3>Registered Methods</h3>
+    </hgroup>
+    <article class="smaller">
+      <p>
+        Executing a registered JSON-RPC method returns an RpcRequest class.
+        It can be executed immediately (shown here) or added to a batch (covered later).
+      </p>
+      <pre class="prettyprint" data-lang="javascript">
+<b>gapi.client.register('plus.people.search', {'apiVersion': 'v1'});</b>
+</pre>
+      <p>
+        This registers the method <code class="green">plus.people.search</code> in the
+        <code class="red">gapi.client</code> namespace. The pattern for registering methods is:
+      </p>
+      <p><code>
+        <span class="red">gapi.client.</span><span class="green">method_name_parsed_as_namespace</span>(rpcParams)
+      </code></p>
+      <p>For example, the method to search profiles is named <code class="green">people.search</code></p>
+      <p><code>
+        <span class="red">gapi.client.</span><span class="green">plus.people.search</span>(rpcParams)
+      </code></p>
+      <pre class="prettyprint" data-lang="javascript">
+<b>var request = gapi.client.plus.people.search({'query': 'Lewis'});</b>
+function requestCallback(jsonResponse, rawResponse) {
+  // Do something with jsonResponse (Object) or rawResponse (string)
+}
+request.execute(requestCallback);
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Loading an API</h2>
+      <h3>Registering an API Surface</h3>
+    </hgroup>
+    <article>
+      <p>
+        An API can be loaded and pre-registered before use.
+        This is not required, but provides some convenience.
+      </p>
+      <pre class="prettyprint" data-lang="javascript">
+gapi.client.load('plus', 'v1', function onReady() {
+  // Executes when the requested API is ready to use
+});</pre>
+      <p>
+        This registers all the methods which the Google+ API supports in the gapi.client namespace.
+      </p>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Making a JSON-RPC Request</h2>
+      <h3>Directly Creating an RpcRequest</h3>
+    </hgroup>
+    <article>
+      <p>
+        The RpcRequest class can be created directly via the <code>gapi.client.rpcRequest</code> method.
+      </p>
+      <p>The format is:</p>
+      <pre class="prettyprint" data-lang="javascript">
+gapi.client.rpcRequest(method, version, rpcParams);
+</pre>
+      <p>Example:</p>
+      <pre class="prettyprint" data-lang="javascript">
+var request = gapi.client.rpcRequest('plus.people.search', 'v1', {'query': 'Lewis'});
+request.execute(requestCallback);
+</pre>
+    </article>
+  </slide>
+
+  <!-- RPC Callbacks -->
+  <slide>
+    <hgroup>
+      <h2>Handling JSON-RPC responses</h2>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="javascript">
+var request = gapi.client.plus.people.search({'query': 'Lewis'});
+<b>function requestCallback(jsonResponse, rawResponse)</b> {
+  // Do something with jsonResponse (Object) or rawResponse (string)
+}
+request.execute(requestCallback);
+</pre>
+      <ul>
+        <li>
+          <code>jsonResponse</code>: Extracts the method response value from HTTP Request and parses as valid JSON.
+          Will be <code>false</code> if the response is not valid JSON.
+        </li>
+        <li>
+          <code>rawResponse</code>: The entire RPC response as a string. This is always present.
+        </li>
+      </ul>
+
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Making a JSON-RPC Request</h2>
+      <h3>Batch Operations</h3>
+    </hgroup>
+    <article>
+      <p>
+        RpcRequests can be batched and executed in parallel. Callbacks can be supplied for individual
+        requests, as well as a callback for the entire operation.
+      </p>
+      <pre class="prettyprint" data-lang="javascript">
+var batch = <b>gapi.client.newRpcBatch();</b>
+var requestLarry = gapi.client.rpcRequest('plus.people.search', 'v1', {'query': 'Larry'});
+var requestSergey = gapi.client.rpcRequest('plus.people.search', 'v1', {'query': 'Sergey'});
+function larryCallback(jsonResponse, batchResponse) {};
+<b>batch.add(requestLarry, {
+  'id': 'larry', // Optional, used to identify responses.
+  'callback': larryCallback // Optional
+});
+batch.add(requestSergey);</b>
+function batchCallback(jsonResponse, batchResponse) {};
+<b>batch.execute(batchCallback);</b>
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Making a JSON-RPC Request</h2>
+      <h3>Batch Operations Callback</h3>
+    </hgroup>
+    <article>
+      <p>
+        Individual batch callbacks are executed first, then the overall batch callback.
+        All batch callbacks get two parameters, similar to individual RpcRequests.
+      </p>
+      <ul>
+        <li><code>jsonResponse</code>: Response parsed as JSON</li>
+        <ul>
+          <li>For individual callbacks: This is the response for the individual operation</li>
+          <li>For batch callbacks: This is all responses as a map of batch ID to response</li>
+        </ul>
+        <li><code>batchResponse</code>: The full batch response as a string. Always contains all batch responses</li>
+      </ul>
+      <pre class="prettyprint" data-lang="javascript">
+batchResponse = {
+  'larry': { /* People search results for 'larry' */ },
+  'random1234': { /* People search results for 'sergey' */ }
+};
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Making a REST Request</h2>
+      <h3>Method Description</h3>
+    </hgroup>
+    <article>
+      <p>
+        REST requests provide more options for making requests, allowing the manipulation of
+        HTTP Method, Headers, and Body.
+      </p>
+      <pre class="prettyprint" data-lang="javascript">
+gapi.client.request({
+  'path': pathToMakeRequest,   // String, Required
+  'params': urlParams,         // Key-value object, Optional.
+  'method': httpMethod,        // String, Optional. Defaults to GET
+  'headers': httpHeaders,      // Key-value object, Optional.
+  'body': httpBody,            // String, Optional.
+  'callback': callbackFunction // Function, Optional. If provided, request is executed immediately.
+});
+</pre>
+    <p>
+      Typically the path contains resource identifiers.
+      For example, to delete a Calendar entry, send a <code>DELETE</code> request to:
+    </p>
+    <code>
+      /calendar/v3/calendars/<span class="red">{calendarId}</span>/events/<span class="green">{eventId}</span>
+    </code>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Making a REST Request</h2>
+      <h3>Example</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="javascript">
+gapi.client.request({
+  'path': '/urlshortener/v1/url',
+  'method': 'POST',
+  'headers': {
+    'Content-Type': 'application/json' // This is the default, included for illustration
+  },
+  'body': JSON.stringify({
+    'longUrl': 'http://www.google.com'
+  }),
+  'callback': function(jsonResponse, rawResponse) {
+    console.log(jsonResponse.id); // Short URL is contained in 'id' field of response
+  }
+});
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Making a REST Request</h2>
+      <h3>Callback</h3>
+    </hgroup>
+    <article>
+      <ul>
+        <li>REST callback function take two parameters like RPC requests</li>
+        <li>
+          <code>jsonResponse</code> is the response parsed as JSON. It will be
+          <code>false</code> if the response is not valid JSON.
+        </li>
+        <li>
+          <code>rawResponse</code> is the raw HTTP response as a string. It contains
+          not just the response in the body but also the headers, status, and statusText.
+        </li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Making a CORS Request</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>CORS is Cross-Origin Resource Sharing</li>
+        <li>
+          For browsers which support CORS, developers can make direct XHR calls to
+          https://www.googleapis.com.
+        </li>
+        <li>
+          CORS requests are constructed similar to REST requests,
+          by constructing the path, params, headers, and body.
+        </li>
+      </ul>
+      <pre class="prettyprint" data-lang="javascript">
+var xhr = new XMLHttpRequest();
+xhr.open('POST', 'https://www.googleapis.com/urlshortener/v1/url?key=AIzaSyAdjHPT5Pb7Nu56WJ_nlrMGOAgUAtKjiPM');
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onload = function() {
+  alert(xhr.responseText);
+};
+xhr.send(JSON.stringify({
+  'longUrl': 'http://www.google.com'
+}));
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Why CORS?</h2>
+    </hgroup>
+    <article>
+      <p><strong>Pros</strong></p>
+      <ul>
+        <li>Does not require the JS Client (significant size savings)</li>
+        <li>Faster API calls</li>
+        <li>Standards-compliant, native cross-browser calls</li>
+      </ul>
+      <p><strong>Cons</strong></p>
+      <ul>
+        <li>More custom code</li>
+        <ul>
+          <li>Ensure API key or Authorization header is set</li>
+          <li>Set other common headers (e.g. Content-Type)</li>
+          <li>Request formatting</li>
+        </ul>
+        <li>
+          Partial browser support.
+          <a href="http://caniuse.com/#search=cors">Can I use CORS?</a>
+        </li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Request Summary</h2>
+    </hgroup>
+    <article>
+      <table>
+        <tr>
+          <th></th><th>JSON-RPC</th><th>REST</th><th>CORS</th>
+        </tr>
+        <tr>
+          <td>Easy-to-use</td><td class="green">Yes</td><td class="red">No</td><td class="red">No</td>
+        </tr>
+        <tr>
+          <td>Set HTTP method, headers, and body</td><td class="red">No</td><td class="green">Yes</td><td class="green">Yes</td>
+        </tr>
+        <tr>
+          <td>Batching</td><td class="green">Yes, Built-in</td><td class="green">Yes</td><td class="green">Yes</td>
+        </tr>
+        <tr>
+          <td>Request Auto-Formatting</td><td class="green">Yes</td><td class="green">Yes</td><td class="red">No</td>
+        </tr>
+        <tr>
+          <td>Cross-Browser</td><td class="green">Yes</td><td class="green">Yes</td><td class="yellow">Partial</td>
+        </tr>
+      </table>
+    </article>
+  </slide>
+
+  <!-- Segue to JS Client Authorization -->
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="images/google_developers_icon_128.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>Google APIs JavaScript Client</h2>
+      <h3>Authentication and Authorization with OAuth 2.0</h3>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>OAuth 2.0 Overview</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <p>
+          "OAuth is a security protocol that enables users to grant third-party access to their
+          web resources without sharing their password"<sup>[1]</sup>
+        </p>
+        <p>
+          User logs in to resource provider, requesting a subset of resources. Resource provider
+          returns an access token. This token is then used by the app to request protected resources
+          on the user's behalf.
+        </p>
+        <p>OAuth consists of two pieces: Authentication and authorization, covered in the next slides</p>
+      </ul>
+      <div style="position: absolute; bottom: 100px; left: 60px;">
+        <p>Links</p>
+        <ul>
+          <li><a href="http://oauth.net/2/">OAuth 2.0 Official Site and Working Draft</a></li>
+          <li><a href="https://developers.google.com/accounts/docs/OAuth2">
+            Google Developers OAuth 2.0 Documentation
+          </a></li>
+          <li>
+            Brief but informative explanation of OAuth 2.0 from
+            <a href="http://hueniverse.com/2010/05/introducing-oauth-2-0/">Hueniverse.com</a>
+          </li>
+        </ul>
+      </div>
+      <footer class="source"><sup>1</sup>http://hueniverse.com/2010/05/introducing-oauth-2-0/</footer>
+    </article>
+  </slide>
+
+  <!-- TODO: Consider taking these next two slides out -->
+  <slide>
+    <hgroup>
+      <h2>OAuth 2.0</h2>
+      <h3>Authentication</h3>
+    </hgroup>
+    <article>
+      <img src="images/oauth-authenticate.png" style="margin:-40px 30px 0 0;float:left;"
+           alt="Google's OAuth Authentication Window" title="Google's OAuth Authentication Window">
+      A user authenticates themself with their login and password to the resource provider,
+      in this case, Google.
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>OAuth 2.0</h2>
+      <h3>Authorization</h3>
+    </hgroup>
+    <article>
+      <img src="images/oauth-authorize.png" style="margin:-40px 30px 0 0;float:left;"
+           alt="Google's OAuth Authorization Window" title="Google's OAuth Authorization Window">
+        A user authorizes the resource provider to provide access to a specific set of resources
+        to the app on the user's behalf.
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>OAuth 2.0</h2>
+      <h3>API Key and Client ID</h3>
+    </hgroup>
+    <article>
+      <ul>
+        <li>To identify your app and access unprotected resources, use an API Key</li>
+        <li>
+          For protected resources, your Client ID is exchanged for an access token, which provides
+          access to protected resources
+        </li>
+        <li><a href="https://code.google.com/apis/console/">API Console</a></li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Auth in the JS Client</h2>
+    </hgroup>
+    <article class="smaller">
+<pre class="prettyprint" data-lang="javascript">
+<b>function init() {
+  gapi.client.setApiKey(apiKey);
+  window.setTimeout(checkAuth,1);
+}</b>
+
+<b>function checkAuth() {
+  gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
+}</b>
+
+
+function handleAuthResult(authResult) {
+  var authorizeButton = document.getElementById('authorize-button');
+  if (authResult) {
+    authorizeButton.style.visibility = 'hidden';
+    makeApiCall();
+  } else {
+    authorizeButton.style.visibility = '';
+    authorizeButton.onclick = handleAuthClick;
+  }
+}
+
+function handleAuthClick(event) {
+  gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
+}
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Auth in the JS Client</h2>
+    </hgroup>
+    <article class="smaller">
+<pre class="prettyprint" data-lang="javascript">
+function handleClientLoad() {
+  gapi.client.setApiKey(apiKey);
+  window.setTimeout(checkAuth,1);
+}
+
+function checkAuth() {
+  gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
+}
+
+
+function handleAuthResult(authResult) {
+  var authorizeButton = document.getElementById('authorize-button');
+  <b>if (authResult) {</b>
+    authorizeButton.style.visibility = 'hidden';
+    <b>makeApiCall();</b>
+  <b>} else {</b>
+    authorizeButton.style.visibility = '';
+    <b>authorizeButton.onclick = handleAuthClick;</b>
+  }
+}
+
+function handleAuthClick(event) {
+  gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
+}
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Auth in the JS Client</h2>
+    </hgroup>
+    <article class="smaller">
+<pre class="prettyprint" data-lang="javascript">
+function handleClientLoad() {
+  gapi.client.setApiKey(apiKey);
+  window.setTimeout(checkAuth,1);
+}
+
+function checkAuth() {
+  gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
+}
+
+
+function handleAuthResult(authResult) {
+  var authorizeButton = document.getElementById('authorize-button');
+  if (authResult) {
+    authorizeButton.style.visibility = 'hidden';
+    makeApiCall();
+  } else {
+    authorizeButton.style.visibility = '';
+    authorizeButton.onclick = handleAuthClick;
+  }
+}
+
+function handleAuthClick(event) {
+  <b>gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);</b>
+}
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Refreshing the Auth Token</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>
+          When authorization succeeds the returned auth token contains an expiration field:
+          <code>expires_in</code>
+        </li>
+        <li>
+          Use this value to schedule an access token refresh, which typically expires in one hour
+        </li>
+        <li>
+          Note: This field does not auto-update, the value should only be trusted just after 
+          initial or refresh auth succeeds
+        </li>
+      </ul>
+<pre class="prettyprint" data-lang="javascript">
+function handleAuthResult(authResult) {
+  if (authResult) {
+    // Subtract five minutes from expires_in to ensure timely refresh
+    var authTimeout = (authResult.expires_in - 5 * 60) * 1000;
+    setTimeout(checkAuth, authTimeout);
+  }
+}
+</pre>
+    </article>
+  </slide> 
+
+  <slide>
+    <hgroup>
+      <h2>Making Authorized Calls</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>To make OAuth 2.0 calls, add an Authorization header field with the value "Bearer &lt;access_token&gt;"</li>
+        <li>
+          The JS Client handles this for you. Once authorization is complete, the header is automatically
+          added to all API calls.
+        </li>
+      </ul>
+      <code>Authorization: Bearer ya29.AHES6ZQnT_mCNMi1Z49FG3-osOoAjGMu5vFpQwNlc1K3X7o</code>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <aside class="gdbar right"><img src="images/google_developers_icon_128.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <h3 style="font-weight:bold">Links</h3>
+      <ul>
+        <li><a class="white" href="http://code.google.com/p/google-api-javascript-client/">
+          Google API JavaScript Client Home
+        </a></li>
+        <li><a class="white" href="https://developers.google.com/accounts/docs/OAuth2">
+          OAuth 2.0 Google Developers Page
+        </a></li>
+      </ul>
+      <h3 style="font-weight:bold">I/O Sessions and Codelabs</h3>
+      <ul>
+        <li><a class="white" href="https://developers.google.com/events/io/sessions/gooio2012/1405/">
+          Building Web applications in JavaScript that use Google APIs (Codelab)
+        </a></li>
+        <li><a class="white" href="https://developers.google.com/events/io/sessions/gooio2012/605/">
+          Optimizing Your Code Using Features of Google APIs (Session)
+        </a></li>
+        <li><a class="white" href="https://developers.google.com/events/io/sessions/gooio2012/604/">
+          OAuth 2.0 for Identity and Data Access (Session)
+        </a></li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <aside class="gdbar right"><img src="images/google_developers_icon_128.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <h2>&lt;Thank You!&gt;</h2>
+    </article>
+    <p class="auto-fadein" data-config-contact>
+      <!-- populated from slide_config.json -->
+    </p>
+  </slide>
+
+  <slide class="logoslide dark nobackground">
+    <article class="flexbox vcenter">
+      <span><img src="images/google_developers_logo_white.png"></span>
+    </article>
+  </slide>
+
+  <slide class="backdrop"></slide>
+
+</slides>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>
