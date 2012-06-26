@@ -86,11 +86,11 @@ body {
   -moz-font-smoothing: antialiased;
   -ms-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
-  -webkit-transition: opacity 800ms ease-in 100ms;
+  /*-webkit-transition: opacity 800ms ease-in 100ms;
   -moz-transition: opacity 800ms ease-in 100ms;
   -ms-transition: opacity 800ms ease-in 100ms;
   -o-transition: opacity 800ms ease-in 100ms;
-  transition: opacity 800ms ease-in 100ms;
+  transition: opacity 800ms ease-in 100ms;*/
 }
 /* line 69, ../scss/_base.scss */
 body.loaded {
@@ -123,11 +123,11 @@ slides {
   perspective: 1000;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
-  -webkit-transition: opacity 800ms ease-in 100ms;
+  /*-webkit-transition: opacity 800ms ease-in 100ms;
   -moz-transition: opacity 800ms ease-in 100ms;
   -ms-transition: opacity 800ms ease-in 100ms;
   -o-transition: opacity 800ms ease-in 100ms;
-  transition: opacity 800ms ease-in 100ms;
+  transition: opacity 800ms ease-in 100ms;*/
 }
 
 /* line 94, ../scss/_base.scss */
@@ -247,11 +247,11 @@ slides > slide {
   -ms-border-radius: 5px;
   -o-border-radius: 5px;
   border-radius: 5px;
-  -webkit-transition: all 0.6s ease-in-out;
+  /*-webkit-transition: all 0.6s ease-in-out;
   -moz-transition: all 0.6s ease-in-out;
   -ms-transition: all 0.6s ease-in-out;
   -o-transition: all 0.6s ease-in-out;
-  transition: all 0.6s ease-in-out;
+  transition: all 0.6s ease-in-out;*/
 }
 /* line 119, ../scss/default.scss */
 slides > slide.far-past {
@@ -295,7 +295,7 @@ slides > slide.dark {
 /* line 171, ../scss/default.scss */
 slides > slide:not(.nobackground):before {
   font-size: 12pt;
-  content: "#io2012";
+  content: "#io12";
   position: absolute;
   bottom: 20px;
   left: 60px;

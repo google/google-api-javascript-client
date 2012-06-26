@@ -18,7 +18,6 @@ URL: https://code.google.com/p/io-2012-slides
   <!--<meta name="viewport" content="initial-scale=0.4">-->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="stylesheet" media="all" href="theme/css/default.css">
-  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
   <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
   <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
 </head>
@@ -380,7 +379,7 @@ gapi.client.request({
 gapi.client.rpcRequest(method, apiVersion, rpcParams);
 </pre>
       <p>Example:</p>
-      <pre class="prettyprint" data-lang="javascript">
+      <pre class="prettyprint" data-lang="js">
 var request = gapi.client.rpcRequest('plus.people.search', 'v1', {'query': 'Lewis'});
 request.execute(requestCallback);
 </pre>
