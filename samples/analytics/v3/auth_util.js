@@ -69,7 +69,7 @@ function handleAuthResult(authResult) {
   if (authResult) {
     gapi.client.load('analytics', 'v3', handleAuthorized);
   } else {
-    handleUnAuthorized();
+    handleUnauthorized();
   }
 }
 
