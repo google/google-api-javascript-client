@@ -1,0 +1,120 @@
+<!--
+  Copyright (c) 2012 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License"); you may not
+  use this file except in compliance with the License. You may obtain a copy of
+  the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+  License for the specific language governing permissions and limitations under
+  the License.
+
+  To run this sample, load the page and follow the instructions listed there.
+	Your application's API key can be found at
+	https://code.google.com/apis/console/ under API Access.
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+		<title>License Manager API JS Demo</title>
+    <script src="https://apis.google.com/js/client.js"></script>
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js">
+		</script>
+    <script src="licensing.js"></script>
+		<link rel="stylesheet" type="text/css" href="licensing.css">
+  </head>
+  <body>
+		<div class="container">
+		<h3>Instructions</h3>
+		<ol>
+			<li>
+				Enter your Client ID: <input id="clientId" size="45"
+				value="1234567890.apps.googleusercontent.com" />
+			</li>
+			<li>
+				Click <button onclick="init();">Authorize</button> to begin.
+				<em>To use on a test domain, open an incognito window and log in to your
+				test account.</em>
+			</li>
+			<li>
+				In the popup window, log in to your administrator account
+				(if you aren't already) and accept the API access prompt.
+			</li>
+			<li>
+				Once authorized, use the UI below to perform the different operations
+				of the License Manager API.
+			</li>
+		</ol>
+		</div>
+		<div class="container">
+			<h3>License Manager</h3>
+			<p id="authreq">
+				<em>Complete authorization in Step 1 and 2 to continue</em>
+			</p>
+			<form id="lmui" onsubmit="manageLicenses(); return false;">
+				<table>
+					<tr id="formlabels">
+						<td>Target Domain</td>
+						<td>Action</td>
+						<td class="userinfo" id="userlabel">Target User</td>
+						<td class="prodinfo">Product</td>
+						<td class="oldskuinfo">Current SKU</td>
+						<td class="skuinfo" id="skulabel">SKU</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>
+							<input id="custid" type="text" name="Customer Id"
+								value="yourdomain.com" size="30" />
+						</td>
+						<td>
+							<select id="mgmtaction" onchange="updateUI();">
+								<option value="view">View Licenses for Product</option>
+								<option value="viewsku">View Licenses for Product and SKU
+								</option>
+								<option value="assign">Assign License</option>
+								<option value="bulkassign">Assign Licenses (Bulk)</option>
+								<option value="reassign">Reassign License</option>
+								<option value="delete">Delete License</option>
+								<option value="bulkdelete">Delete Licenses (Bulk)</option>
+							</select>
+						</td>
+						<td class="userinfo">
+							<input id="userid" type="text" name="User Id"
+								value="user@yourdomain.com" size="40" />
+						</td>
+						<td class="prodinfo">
+							<select id="prodid" onchange="updateSkus();">
+								<option value="Google-Coordinate">Google-Coordinate</option>
+								<option value="Google-Drive-storage">Google-Drive-storage
+								</option>
+							</select>
+						</td>
+						<td class="oldskuinfo">
+							<select class="skupicker" id="oldskuid">
+								<option value="Google-Coordinate">Google-Coordinate</option>
+							</select>
+						</td>
+						<td class="skuinfo">
+							<select class="skupicker" id="skuid">
+								<option value="Google-Coordinate">Google-Coordinate</option>
+							</select>
+						</td>
+						<td>
+							<input type="submit" value="Execute" />
+						</td>
+					</tr>
+				</table>		
+			</form>
+		</div>
+		<div class="container" id="response">
+			<h3>Response</h3>
+			<p><em>Make an API call to see the response here</em></p>
+		</div>
+  </body>
+</html>
