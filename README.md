@@ -27,6 +27,7 @@ The library supports the following authentication and authorization methods
   - [Getting Started](https://developers.google.com/api-client-library/javascript/start/start-js)
   - [Reference Docs](https://developers.google.com/api-client-library/javascript/reference/referencedocs)
   - [Samples](https://developers.google.com/api-client-library/javascript/samples/samples)
+  - [Support](https://developers.google.com/api-client-library/javascript/help/support)
 
 ## Links
   - Blogs
