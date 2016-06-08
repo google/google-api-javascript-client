@@ -13,11 +13,12 @@
   License for the specific language governing permissions and limitations under
   the License.
 
-  To run this sample, set clientId to your application's OAuth 2.0 client ID. It
-  can be found at https://console.developers.google.com/apis/credentials?project=_
+  To run this sample, set apiKey to your application's API key and clientId to
+  your application's OAuth 2.0 client ID. They can be generated at:
+    https://console.developers.google.com/apis/credentials?project=_
   Then, add a JavaScript origin to the client that corresponds to the domain
-  where you will be running the script. Finally, activate the People API at
-  https://console.developers.google.com/apis/library?project=_
+  where you will be running the script. Finally, activate the People API at:
+    https://console.developers.google.com/apis/library?project=_
 -->
 <!DOCTYPE html>
 <html>
@@ -34,6 +35,10 @@
     <div id="content"></div>
 
     <script type="text/javascript">
+      // Enter an API key from the Google API Console:
+      //   https://console.developers.google.com/apis/credentials?project=_
+      var apiKey = 'YOUR_API_KEY';
+
       // Enter a client ID for a web application from the Google API Console:
       //   https://console.developers.google.com/apis/credentials?project=_
       // In your API Console project, add a JavaScript origin that corresponds
@@ -59,6 +64,7 @@
             client_id: clientId,
             scope: scopes
         });
+        gapi.client.setApiKey(apiKey);
 
         // Listen for sign-in state changes.
         auth2.isSignedIn.listen(signinChanged);
