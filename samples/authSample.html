@@ -13,9 +13,11 @@
   License for the specific language governing permissions and limitations under
   the License.
 
-  To run this sample, replace YOUR API KEY with your application's API key.
-  It can be found at https://code.google.com/apis/console/?api=plus under API Access.
-  Activate the Google+ service at https://code.google.com/apis/console/ under Services
+  To run this sample, set clientId to your application's OAuth 2.0 client ID. It
+  can be found at https://console.developers.google.com/apis/credentials?project=_
+  Then, add a JavaScript origin to the client that corresponds to the domain
+  where you will be running the script. Finally, activate the People API at
+  https://console.developers.google.com/apis/library?project=_
 -->
 <!DOCTYPE html>
 <html>
@@ -23,73 +25,86 @@
     <meta charset='utf-8' />
   </head>
   <body>
-    <!--Add a button for the user to click to initiate auth sequence -->
-    <button id="authorize-button" style="visibility: hidden">Authorize</button>
+    <p>Say hello using the People API.</p>
+
+    <!--Add buttons to initiate auth sequence and sign out-->
+    <button id="authorize-button">Authorize</button>
+    <button id="signout-button" display="none">Sign Out</button>
+
+    <div id="content"></div>
+
     <script type="text/javascript">
-      // Enter a client ID for a web application from the Google Developer Console.
-      // The provided clientId will only work if the sample is run directly from
-      // https://google-api-javascript-client.googlecode.com/hg/samples/authSample.html
-      // In your Developer Console project, add a JavaScript origin that corresponds to the domain
-      // where you will be running the script.
-      var clientId = '837050751313';
+      // Enter a client ID for a web application from the Google API Console:
+      //   https://console.developers.google.com/apis/credentials?project=_
+      // In your API Console project, add a JavaScript origin that corresponds
+      //   to the domain where you will be running the script.
+      var clientId = '803078230965-po1lt79tad5idhpn2p6ctn8ahkn1ffj3.apps.googleusercontent.com';
 
-      // Enter the API key from the Google Developer Console - to handle any unauthenticated
-      // requests in the code.
-      // The provided key works for this sample only when run from
-      // https://google-api-javascript-client.googlecode.com/hg/samples/authSample.html
-      // To use in your own application, replace this API key with your own.
-      var apiKey = 'AIzaSyAdjHPT5Pb7Nu56WJ_nlrMGOAgUAtKjiPM';
+      // Enter one or more authorization scopes. Refer to the documentation for
+      // the API or https://developers.google.com/identity/protocols/googlescopes
+      // for details.
+      var scopes = 'profile';
 
-      // To enter one or more authentication scopes, refer to the documentation for the API.
-      var scopes = 'https://www.googleapis.com/auth/plus.me';
+      var auth2; // The Sign-In object.
+      var authorizeButton = document.getElementById('authorize-button');
+      var signoutButton = document.getElementById('signout-button');
 
-      // Use a button to handle authentication the first time.
       function handleClientLoad() {
-        gapi.client.setApiKey(apiKey);
-        window.setTimeout(checkAuth,1);
+        // Load the API client and auth library
+        gapi.load('client:auth2', initAuth);
       }
 
-      function checkAuth() {
-        gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
+      function initAuth() {
+        auth2 = gapi.auth2.init({
+            client_id: clientId,
+            scope: scopes
+        });
+
+        // Listen for sign-in state changes.
+        auth2.isSignedIn.listen(signinChanged);
+
+        authorizeButton.onclick = handleAuthClick;
+        signoutButton.onclick = handleSignoutClick;
       }
 
-
-      function handleAuthResult(authResult) {
-        var authorizeButton = document.getElementById('authorize-button');
-        if (authResult && !authResult.error) {
-          authorizeButton.style.visibility = 'hidden';
+      function signinChanged(isSignedIn) {
+        if (isSignedIn) {
+          authorizeButton.style.display = 'none';
+          signoutButton.style.display = 'block';
           makeApiCall();
         } else {
-          authorizeButton.style.visibility = '';
-          authorizeButton.onclick = handleAuthClick;
+          authorizeButton.style.display = 'block';
+          signoutButton.style.display = 'none';
         }
       }
 
       function handleAuthClick(event) {
-        gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
-        return false;
+        auth2.signIn();
+      }
+
+      function handleSignoutClick(event) {
+        auth2.signOut();
       }
 
       // Load the API and make an API call.  Display the results on the screen.
       function makeApiCall() {
-        gapi.client.load('plus', 'v1', function() {
-          var request = gapi.client.plus.people.get({
-            'userId': 'me'
+        gapi.client.load('people', 'v1', function() {
+          var request = gapi.client.people.people.get({
+            resourceName: 'people/me'
           });
           request.execute(function(resp) {
-            var heading = document.createElement('h4');
-            var image = document.createElement('img');
-            image.src = resp.image.url;
-            heading.appendChild(image);
-            heading.appendChild(document.createTextNode(resp.displayName));
-
-            document.getElementById('content').appendChild(heading);
+            var p = document.createElement('p');
+            var name = resp.names[0].givenName;
+            p.appendChild(document.createTextNode('Hello, '+name+'!'));
+            document.getElementById('content').appendChild(p);
           });
         });
+        // Note: In this example, we use the People API to get the current
+        // user's name. In a real app, you would likely get basic profile info
+        // from the GoogleUser object to avoid the extra network round trip.
+        console.log(auth2.currentUser.get().getBasicProfile().getGivenName());
       }
     </script>
-    <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
-    <div id="content"></div>
-    <p>Retrieves your profile name using the Google Plus API.</p>
+    <script src="https://apis.google.com/js/api.js?onload=handleClientLoad"></script>
   </body>
 </html>
