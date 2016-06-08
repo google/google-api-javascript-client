@@ -29,8 +29,8 @@
     <p>Say hello using the People API.</p>
 
     <!--Add buttons to initiate auth sequence and sign out-->
-    <button id="authorize-button">Authorize</button>
-    <button id="signout-button" display="none">Sign Out</button>
+    <button id="authorize-button" style="display: none;">Authorize</button>
+    <button id="signout-button" style="display: none;">Sign Out</button>
 
     <div id="content"></div>
 
@@ -60,20 +60,25 @@
       }
 
       function initAuth() {
-        auth2 = gapi.auth2.init({
+        gapi.client.setApiKey(apiKey);
+        gapi.auth2.init({
             client_id: clientId,
             scope: scopes
+        }).then(function () {
+          auth2 = gapi.auth2.getAuthInstance();
+
+          // Listen for sign-in state changes.
+          auth2.isSignedIn.listen(updateSigninStatus);
+
+          // Handle the initial sign-in state.
+          updateSigninStatus(auth2.isSignedIn.get());
+
+          authorizeButton.onclick = handleAuthClick;
+          signoutButton.onclick = handleSignoutClick;
         });
-        gapi.client.setApiKey(apiKey);
-
-        // Listen for sign-in state changes.
-        auth2.isSignedIn.listen(signinChanged);
-
-        authorizeButton.onclick = handleAuthClick;
-        signoutButton.onclick = handleSignoutClick;
       }
 
-      function signinChanged(isSignedIn) {
+      function updateSigninStatus(isSignedIn) {
         if (isSignedIn) {
           authorizeButton.style.display = 'none';
           signoutButton.style.display = 'block';
