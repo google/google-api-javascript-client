@@ -20,7 +20,7 @@
 <html>
   <head>
     <meta charset='utf-8' />
-    <title>JS Client RPC Body Sample</title>
+    <title>JS Client with Request Body Sample</title>
     <style>
       #info {
         border: 1px solid black;
@@ -57,37 +57,29 @@
         }
       };
 
-      function init() {
-        gapi.client.setApiKey(apiKey);
-        gapi.auth.init(load);
+      function handleClientLoad() {
+        gapi.load('client', initClient);
       }
 
-      function load() {
-        gapi.client.load('calendar', 'v3', auth);
+      function initClient() {
+        gapi.client.init({
+          apiKey: apiKey,
+          clientId: clientId,
+          scope: scopes
+        }).then();
       }
 
-      function auth() {
-        gapi.auth.authorize({
-          'client_id': clientId,
-          'scope': scopes,
-          'immediate': false
-        });
+      function signIn() {
+        gapi.auth2.getAuthInstance().signIn();
       }
 
-      function makeRpcRequest() {
-        var request = gapi.client.calendar.events.insert({
-          'calendarId': 'primary',
-          'resource': resource
-        });
-        request.execute(writeResponse);
-      }
-
-      function makeRestRequest() {
+      function makeRequest() {
         gapi.client.request({
           'path': '/calendar/v3/calendars/primary/events',
           'method': 'POST',
-          'body': resource,
-          'callback': writeResponse
+          'body': resource
+        }).then(function(resp) {
+          writeResponse(resp.result);
         });
       }
 
@@ -107,7 +99,10 @@
         infoDiv.appendChild(entryLink);
       }
     </script>
-    <script src="https://apis.google.com/js/client.js?onload=init"></script>
+    <script async defer src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){};handleClientLoad();"
+      onreadystatechange="if (this.readyState === 'complete') this.onload();">
+    </script>
   </head>
   <body>
     <p>
@@ -115,8 +110,8 @@
       December 16, 2011 from 10:00 to 10:25. The entry will not be saved unless
       you click through to the Calendar entry and save it.
     </p>
-    <button id="rpc" onclick="makeRpcRequest();">Make RPC Request</button>
-    <button id="rest" onclick="makeRestRequest();">Make REST Request</button>
+    <button id="rpc" onclick="signIn();">Sign in</button>
+    <button id="rest" onclick="makeRequest();">Make Request</button>
     <div id="info"></div>
   </body>
 </html>

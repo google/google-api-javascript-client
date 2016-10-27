@@ -26,7 +26,7 @@
         padding: 0.25em;
       }
     </style>
-    <script src="https://apis.google.com/js/client.js"></script>
+    
     <script>
       // Enter the API key from the Google Develoepr Console - to handle any unauthenticated
       // requests in the code.
@@ -34,6 +34,16 @@
       // https://google-api-javascript-client.googlecode.com/hg/samples/requestSample.html
       // To use in your own application, replace this API key with your own.
       var apiKey = 'AIzaSyAdjHPT5Pb7Nu56WJ_nlrMGOAgUAtKjiPM';
+
+      function handleClientLoad() {
+          gapi.load('client', makeRequest);
+      }
+
+      function initClient() {
+        gapi.client.init({
+          apiKey: apiKey,
+        }).then(makeRequest)
+      }
 
       function makeRequest() {
         gapi.client.setApiKey(apiKey);
@@ -58,6 +68,10 @@
 
         restRequest.execute(writeResponse);
       }
+    </script>
+    <script async defer src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){};handleClientLoad();"
+      onreadystatechange="if (this.readyState === 'complete') this.onload();">
     </script>
   </head>
 
