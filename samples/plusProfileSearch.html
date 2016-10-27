@@ -28,8 +28,15 @@
       // To use in your own application, replace this API key with your own.
       var apiKey = 'AIzaSyAdjHPT5Pb7Nu56WJ_nlrMGOAgUAtKjiPM';
 
-      function load() {
-        gapi.client.load('plus', 'v1', showSearch);
+      function handleClientLoad() {
+          gapi.load('client', initClient);
+      }
+
+      function initClient() {
+        gapi.client.init({
+          apiKey: apiKey,
+          discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/plus/v1/rest']
+        }).then(showSearch)
       }
 
       function showSearch() {
@@ -76,14 +83,16 @@
         }
 
         var query = document.getElementById('query').value;
-        gapi.client.setApiKey(apiKey);
         var request = gapi.client.plus.people.search({
           'query': query
         });
         request.execute(writeResponse);
       }
     </script>
-    <script src="https://apis.google.com/js/client.js?onload=load"></script>
+    <script async defer src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){};handleClientLoad();"
+      onreadystatechange="if (this.readyState === 'complete') this.onload();">
+    </script>
   </head>
 
   <body>
