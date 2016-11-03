@@ -68,6 +68,8 @@
         // pack the json as a string to avoid extra network request.
         // After this promise is fulfilled, the peopleApiDiscovery variable
         // will be set.
+        // This discovery document is downloaded from
+        // https://people.googleapis.com/$discovery/rest?version=v1
         var fetchPeopleApiDiscovery = fetch('people/people_rest_v1.json').then(
             function(resp){
           return resp.json();
