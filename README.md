@@ -1,8 +1,8 @@
-# Google APIs Client Library for JavaScript
+# Google API Client Library for JavaScript
 
 ## Description
 
-Written by Google, this compact and efficient client library provides access to any of Google's RESTful APIs. See below for a list of supported APIs.
+Written by Google, this compact and efficient client library provides access to Google REST APIs. See below for a list of supported APIs.
 
 ## Beta
 
@@ -10,17 +10,9 @@ This library is in Beta. We're comfortable enough with the stability and feature
 
 ## Features
 
-The JavaScript client library [supports these Google APIs](https://code.google.com/apis/explorer/).
+The JavaScript client library [supports these Google APIs](https://developers.google.com/apis-explorer/#p/).
 
-The JavaScript client supports the following browser environments:
-
-  - Chrome 8+
-  - Firefox 3.5+
-  - MSIE 8+
-  - Safari 4+
-
-The library supports the following authentication and authorization methods
-  - [OAuth2](https://developers.google.com/api-client-library/javascript/features/authentication)
+The library supports [OAuth 2 authentication](https://developers.google.com/api-client-library/javascript/features/authentication).
 
 ## Documentation
   
