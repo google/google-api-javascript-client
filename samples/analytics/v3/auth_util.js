@@ -66,7 +66,7 @@ function checkAuth() {
  *     to their data. If it exists, the user has authorized access.
  */
 function handleAuthResult(authResult) {
-  if (authResult) {
+  if (authResult && !authResult.error) {
     gapi.client.load('analytics', 'v3', handleAuthorized);
   } else {
     handleUnauthorized();
