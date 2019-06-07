@@ -2,7 +2,9 @@
 
 ## Description
 
-Written by Google, this compact and efficient client library provides access to Google REST APIs. See below for a list of supported APIs.
+Written by Google, this compact and efficient client library provides access to Google REST APIs.
+
+> Note: This repo does not contain the source code for the `gapi` client.
 
 ## Features
 
@@ -12,13 +14,12 @@ The library supports [OAuth 2 authentication](https://developers.google.com/api-
 
 ## Documentation
   
-  - [Getting Started](https://developers.google.com/api-client-library/javascript/start/start-js)
-  - [Reference Docs](https://developers.google.com/api-client-library/javascript/reference/referencedocs)
-  - [Samples](https://developers.google.com/api-client-library/javascript/samples/samples)
-  - [Support](https://developers.google.com/api-client-library/javascript/help/support)
+- [Getting Started](https://developers.google.com/api-client-library/javascript/start/start-js)
+- [Reference Docs](https://developers.google.com/api-client-library/javascript/reference/referencedocs)
+- [Samples](https://developers.google.com/api-client-library/javascript/samples/samples)
+- [Support](https://developers.google.com/api-client-library/javascript/help/support)
 
 ## Links
-  - Blogs
-    - [Announcements](http://google-api-javascript-client.blogspot.com/)
-  - Groups
-    - [Discuss](http://groups.google.com/group/google-api-javascript-client)
+
+- [Discussions](https://github.com/google/google-api-javascript-client/issues)
+- [Announcements](http://google-api-javascript-client.blogspot.com/)
