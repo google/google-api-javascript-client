@@ -2,7 +2,8 @@
 
 ## Description
 
-Written by Google, this compact and efficient client library provides access to Google REST APIs.
+The Google API Client Library for JavaScript is designed for JavaScript client-application
+developers. It offers simple, flexible access to many Google APIs.
 
 > Note: This repo does not contain the source code for the `gapi` client.
 
@@ -12,12 +13,20 @@ The JavaScript client library [supports these Google APIs](https://developers.go
 
 The library supports [OAuth 2 authentication](https://developers.google.com/api-client-library/javascript/features/authentication).
 
-## Documentation
-  
-- [Getting Started](https://developers.google.com/api-client-library/javascript/start/start-js)
-- [Reference Docs](https://developers.google.com/api-client-library/javascript/reference/referencedocs)
-- [Samples](https://developers.google.com/api-client-library/javascript/samples/samples)
-- [Support](https://developers.google.com/api-client-library/javascript/help/support)
+# Documentation
+
+- [Getting Started](docs/start.md)
+- [Reference](docs/reference.md)
+
+## Guides
+
+- [Auth](docs/auth.md)
+- [Batch](docs/batch.md)
+- [CORS](docs/cors.md)
+- [Discovery Documents](docs/discovery.md)
+- [FAQ](docs/faq.md)
+- [Promises](docs/promises.md)
+- [Samples](docs/samples.md)
 
 ## Links
 
