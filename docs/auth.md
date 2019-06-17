@@ -64,7 +64,7 @@ The API key identifies your application for requests that don't require authoriz
 Whether or not your application requires authorized access, your code should call `gapi.client.init` with the `apiKey` parameter.
 
 ```js
-gapi.client.init({ 'apiKey':  'YOUR\_API\_KEY', ...  
+gapi.client.init({ 'apiKey':  'YOUR_API_KEY', ...  
 }).then(...) 
 ```
 
