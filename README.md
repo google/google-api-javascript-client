@@ -13,6 +13,8 @@ The JavaScript client library [supports these Google APIs](https://developers.go
 
 The library supports [OAuth 2 authentication](https://developers.google.com/api-client-library/javascript/features/authentication).
 
+If you use TypeScript, you can install [`@types/gapi`](https://www.npmjs.com/package/@types/gapi) for autocompletion.
+
 # Documentation
 
 - [Getting Started](docs/start.md)
@@ -31,4 +33,4 @@ The library supports [OAuth 2 authentication](https://developers.google.com/api-
 ## Links
 
 - [Discussions](https://github.com/google/google-api-javascript-client/issues)
-- [Announcements](http://google-api-javascript-client.blogspot.com/)
+- [Historical Announcements](http://google-api-javascript-client.blogspot.com/)
