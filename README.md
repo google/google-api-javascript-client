@@ -13,10 +13,8 @@ The JavaScript client library [aac51cf5d64e51bd2d0b4e477d2a4b8421eaf329](https:/
 
 The library supports [OAuth 2 authentication](https://developers.google.com/api-client-library/javascript/features/authentication).
 
-If you use TypeScript, you can install [`@types/gapi`](https://www.npmjs.com/package/@types/gapi) for autocompletion.
-
+If you use TypeScript, you can install (https://youtubeanalytics.googleapis.com) for autocompletion.
 # Documentation
-
 - [Getting Started](docs/start.md)
 - [Reference](docs/reference.md)
 
