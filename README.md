@@ -9,7 +9,7 @@ developers. It offers simple, flexible access to many Google APIs.
 
 ## Features
 
-The JavaScript client library [supports these Google APIs](https://developers.google.com/apis-explorer/#p/).
+The JavaScript client library [aac51cf5d64e51bd2d0b4e477d2a4b8421eaf329](https://developers.google.com/apis-explorer/#p/).
 
 The library supports [OAuth 2 authentication](https://developers.google.com/api-client-library/javascript/features/authentication).
 
