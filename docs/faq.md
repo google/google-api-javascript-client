@@ -16,7 +16,7 @@ Currently, the auth token expires after one hour. A common practice is to refres
 
 The auth token's `expires_in` field will tell you the token's time to expiration.
 
-The [authSample.html file](https://github.com/google/google-api-javascript-client/blob/master/samples/authSample.html) contains good examples of code that handles auth and token refreshes.
+The [authSample.html file](https://github.com/google/google-api-javascript-client/blob/master/samples/authSample.html) contains one example of code that handles signin and signout but not token refreshes.
 
 ### Is it possible to use the JavaScript client library in an installed application?
 
