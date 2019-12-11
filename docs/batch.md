@@ -1,6 +1,6 @@
 # Making Batch Requests
 
-The JavaScript client library supports batching HTTP requests to make multiple API calls in one round-trip. For reference documentation about batch-related methods and classes, see [Methods and Classes](/api-client-library/javascript/reference/referencedocs)
+The JavaScript client library supports batching HTTP requests to make multiple API calls in one round-trip. For reference documentation about batch-related methods and classes, see [Methods and Classes](reference.md#batch-api-requests)
 
 ## Creating a batch
 
@@ -12,7 +12,7 @@ var batch = gapi.client.newBatch();
 
 ## Adding requests to the batch
 
-Use the `Batch` object's [`add`](/api-client-library/javascript/reference/referencedocs#gapiclientBatchadd) method to add individual HTTP requests. The `add` method supports one optional parameter:
+Use the `Batch` object's [`add`](reference.md#----gapiclientbatchaddrequestopt_params--) method to add individual HTTP requests. The `add` method supports one optional parameter:
 
 <table>
   <colgroup>
@@ -66,7 +66,7 @@ batch.add(searchSimon, {'id': 'searchSimon'});
 
 ## Executing a batch
 
-Batch requests are executed just like individual requests, using [`gapi.client.Batch.then`](/api-client-library/javascript/reference/referencedocs#gapiclientBatchthen).
+Batch requests are executed just like individual requests, using [`gapi.client.Batch.then`](reference.md#----gapiclientbatchthenonfulfilled-onrejected-context--).
 
 ### Batch request promise
 
@@ -76,4 +76,4 @@ If the batch promise is fulfilled, the result field of the response will contain
 
 Each request in the batch can also be treated as a promise. If the `then` method is invoked on an individual request, the promise will be fulfilled or rejected with a value, just as if the request had been executed individually.
 
-For more information about the response formats and using batch promises, see the [Using Promises](/api-client-library/javascript/features/promises) section.
+For more information about the response formats and using batch promises, see the [Using Promises](promises.md) section.
