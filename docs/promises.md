@@ -224,9 +224,6 @@ personFetcher.fetch('John');
 
 ## Migrating from callbacks to promises
 
-Migrating from callbacks to promises
-------------------------------------
-
 The `result` parameter of the fulfilled promise value is equivalent to the first parameter in [`execute`](/api-client-library/javascript/reference/referencedocs#gapiclientRequestexecute)'s callback. To update your code to use promises, change your code as shown in the before and after examples below.
 
 The following example shows using a callback:
