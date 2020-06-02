@@ -133,14 +133,14 @@ Google defines two levels of API access:
 
 #### To acquire an API key for simple access, do the following:
 
-1.  Open the [Credentials page](https://console.developers.google.com/apis/credentials) in the API Console.
+1.  Open the [Credentials page](https://console.developers.google.com/apis/credentials) in the "APIs & Services" console.
 2.  Click **Create credentials > API key** and select the appropriate key type.
 
 To keep your API keys secure, follow the [best practices for securely using API keys](https://support.google.com/cloud/answer/6310037).
 
 #### To acquire OAuth 2.0 credentials for authorized access, do the following:
 
-1.  Open the [Credentials page](https://console.developers.google.com/apis/credentials) in the API Console.
+1.  Open the [Credentials page](https://console.developers.google.com/apis/credentials) in the "APIs & Services" console.
 2.  Click **Create credentials > OAuth client ID** and select the appropriate Application type.
 
 For information about using OAuth 2.0 credentials, see the [Authentication](https://developers.google.com/api-client-library/javascript/features/authentication) page.
