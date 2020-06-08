@@ -8,7 +8,7 @@ You can use the JavaScript client library to interact with Google APIs, such as 
 There are several ways to use the JavaScript client library to make API requests, but they all follow the same basic pattern:
 
 1.  The application loads the JavaScript client library.
-2.  The application initializes the library with API key, OAuth client ID, and [API Discovery Document(s)](https://developers.google.com/api-client-library/javascript/features/discovery).
+2.  The application initializes the library with API key, OAuth client ID, and [API Discovery Document(s)](discovery.md).
 3.  The application sends a request and processes the response.
 
 The following sections show 3 common ways of using the JavaScript client library.
