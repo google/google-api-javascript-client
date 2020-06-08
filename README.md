@@ -11,7 +11,7 @@ developers. It offers simple, flexible access to many Google APIs.
 
 The JavaScript client library [supports these Google APIs](https://developers.google.com/apis-explorer/#p/).
 
-The library supports [OAuth 2 authentication](https://developers.google.com/api-client-library/javascript/features/authentication).
+The library supports [OAuth 2 authentication](docs/auth.md).
 
 If you use TypeScript, you can install [`@types/gapi`](https://www.npmjs.com/package/@types/gapi) for autocompletion.
 
