@@ -18,7 +18,7 @@ The following sections show 3 common ways of using the JavaScript client library
 The following example assumes the user has already signed in. For a full example of how to sign in a user, see the [full auth sample](https://github.com/google/google-api-javascript-client/blob/master/docs/samples.md#authorizing-and-making-authorized-requests).
 
 ```html
-<script src="https://apis.google.com/js/api.js"></script>
+<script src="https://apis.google.com/js/client.js"></script>
 <script>
 function start() {
   // 2. Initialize the JavaScript client library.
