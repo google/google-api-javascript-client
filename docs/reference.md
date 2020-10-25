@@ -147,7 +147,7 @@ alert('gapi.client could not load in a timely manner!');
   </h3>
   <p>
     Initializes the JavaScript client with API key, OAuth client ID, scope, and
-    <a href="/api-client-library/javascript/features/discovery">API discovery document(s)</a>.
+    <a href="/docs/discovery.md">API discovery document(s)</a>.
     If OAuth client ID and scope are provided, this function will load the
     <code>gapi.auth2</code> module to perform OAuth. The <code>gapi.client.init</code> function
     can be run multiple times, such as to set up more APIs, to change API key, or initialize
@@ -275,7 +275,7 @@ alert('gapi.client could not load in a timely manner!');
   </h3>
   <p>
     Loads the client library interface to a particular API with
-    <a href="/api-client-library/javascript/features/discovery">discovery document</a>
+    <a href="/docs/discovery.md">discovery document</a>
     URL or JSON object. Returns a <strong>Promise</strong>-like
     <code><a href="https://google.github.io/closure-library/api/goog.Thenable.html">
           goog.Thenable</a></code>
