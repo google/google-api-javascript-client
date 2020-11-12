@@ -45,6 +45,8 @@ Google defines two levels of API access:
   </tr>
 </table>
 
+For a complete reference of goole api client check Google Sign-In for websites [reference](https://developers.google.com/identity/sign-in/web/reference) and [guides](https://developers.google.com/identity/sign-in/web/sign-in).
+
 [](#top_of_page)Getting access keys for your application
 --------------------------------------------------------
 
