@@ -7,12 +7,12 @@ The JavaScript client library supports batching HTTP requests to make multiple A
 The JavaScript client library defines an object called `Batch`. You can start by instantiating this object:
 
 ```js
-var batch = gapi.client.newBatch();
+const batch = gapi.client.newBatch();
 ```
 
 ## Adding requests to the batch
 
-Use the `Batch` object's [`add`](reference.md#----gapiclientbatchaddrequestopt_params--) method to add individual HTTP requests. The `add` method supports one optional parameter:
+Use the `Batch` object's [`add`](reference.md#----gapiclientbatchaddrequestopt_params--) method to add individual HTTP requests. Only requests created via [discovery](discovery.md) should be added to a batch. The `add` method supports one optional parameter:
 
 <table>
   <colgroup>
@@ -49,19 +49,18 @@ Use the `Batch` object's [`add`](reference.md#----gapiclientbatchaddrequestopt_p
 Example:
 
 ```js
-var searchRequest = function(name) {
-  return gapi.client.request({
-    'path': 'plus/v1/people',
-    'params': {'query': name}
-   });
-};
-var searchAlvin = searchRequest('Alvin');
-var searchSimon = searchRequest('Simon');
+const getMe = gapi.client.people.people.get({
+  'resourceName': 'people/me'
+});
+
+const getYou = gapi.client.people.people.get({
+  'resourceName': 'people/you'
+});
 
 // Adding just the request
-batch.add(searchAlvin);
+batch.add(getMe);
 // Adding the request with an ID
-batch.add(searchSimon, {'id': 'searchSimon'});
+batch.add(getYou, {'id': 'getYou'});
 ```
 
 ## Executing a batch
