@@ -78,7 +78,7 @@ gapi.load('client', start);
 
 ### Option 3: Use CORS
 
-Google APIs support [CORS](http://www.w3.org/TR/cors/). If your application needs to do media uploads and downloads, it should use CORS. See the [CORS Support](https://developers.google.com/api-client-library/javascript/features/cors) page for details.
+Google APIs support [CORS](http://www.w3.org/TR/cors/). If your application needs to do media uploads and downloads, it should use CORS. See the [CORS Support](https://github.com/google/google-api-javascript-client/blob/master/docs/cors.md) page for details.
 
 [](#top_of_page)Supported environments
 --------------------------------------
