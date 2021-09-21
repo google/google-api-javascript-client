@@ -52,7 +52,7 @@ To get access keys, go to the [Google Developers Console](https://console.develo
 
 For authorized access, you must also tell Google your website's protocol and domain. In return, Google generates a client ID. Your application submits this to the Google Auth server to get an OAuth 2.0 access token.
 
-For detailed instructions for this process, see the [Getting started](start.md) page.
+For detailed instructions for this process, see the [Getting started](https://developers.google.com/api-client-library/javascript/start/start-js) page.
 
 See below for details and examples of how to use these credentials in your application.
 
@@ -68,7 +68,7 @@ gapi.client.init({ 'apiKey':  'YOUR_API_KEY', ...
 }).then(...) 
 ```
 
-For a complete example of simple API access, follow [this link](samples.md#LoadinganAPIandMakingaRequest).
+For a complete example of simple API access, follow [this link](https://developers.google.com/api-client-library/javascript/samples/samples#LoadinganAPIandMakingaRequest).
 
 [](#top_of_page)Authorized access
 ---------------------------------
@@ -106,12 +106,12 @@ After this, the user is signed in to your application, and the application is au
 [](#top_of_page)Auth example
 ----------------------------
 
-See the [auth example](samples.md#authorizing-and-making-authorized-requests) on the Samples page.
+See the [auth example](https://developers.google.com/api-client-library/javascript/samples/samples#authorizing-and-making-authorized-requests) on the Samples page.
 
 [](#top_of_page)Making a request with CORS
 ------------------------------------------
 
-To make an authenticated [CORS](http://www.w3.org/TR/cors/) request, you can add the OAuth 2.0 access token to the request header or add it as a URL parameter. For details, read the [CORS documentation](cors.md).
+To make an authenticated [CORS](http://www.w3.org/TR/cors/) request, you can add the OAuth 2.0 access token to the request header or add it as a URL parameter. For details, read the [CORS documentation](https://developers.google.com/api-client-library/javascript/features/cors).
 
 [](#top_of_page)The standalone auth client
 ------------------------------------------
@@ -120,4 +120,4 @@ Your application can also use a subset of the full JavaScript client library tha
 
 Use the standalone auth client in web applications that will run in environments with full CORS support, such as Chrome extensions and mobile browsers. If your application may run on browsers which do not support CORS, or if you want to use other features of the JavaScript library, use the standard JavaScript client.
 
-For information about how to load and use the auth client, see the [CORS documentation](cors.md).
+For information about how to load and use the auth client, see the [CORS documentation](https://developers.google.com/api-client-library/javascript/features/cors).
