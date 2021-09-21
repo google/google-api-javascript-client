@@ -1,0 +1,137 @@
+<!--
+  Copyright (c) 2013 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License"); you may not
+  use this file except in compliance with the License. You may obtain a copy of
+  the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+  License for the specific language governing permissions and limitations under
+  the License.
+
+  To run this sample, replace apiKey with your application's API key.
+  It can be found at https://code.google.com/apis/console/?api=plus under API Access.
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RPC Batch</title>
+  </head>
+
+  <body>
+    <div id="search" style="display:none;">
+      <p>Enter comma-separated queries to batch-search Google+ Profiles</p>
+      <label for="query">Queries</label>
+      <input id="query" type="text" />
+      <button onclick="makeRequest();">
+        Search Google+ Profiles
+      </button>
+      <div id="info"></div>
+    </div>
+    <script>
+      // Enter the API key from the Google Developer Console to handle any unauthenticated
+      // requests in the code.
+      // The provided key works for this sample only when run from
+      // https://google-api-javascript-client.googlecode.com/
+      // To use in your own application, replace this API key with your own.
+      var apiKey = 'AIzaSyAdjHPT5Pb7Nu56WJ_nlrMGOAgUAtKjiPM';
+
+      function handleClientLoad() {
+        gapi.load('client', initClient);
+      }
+
+      function initClient() {
+        gapi.client.init({
+          apiKey: apiKey,
+          discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/plus/v1/rest']
+        }).then(showSearch)
+      }
+
+      function showSearch() {
+        document.getElementById('search').style.display = '';
+      }
+
+      // Request smaller images from photos to save bandwidth
+      function resizeImage(imageUrl) {
+        var lastSlash = imageUrl.lastIndexOf('/');
+        var resizedUrl = imageUrl.substring(0, lastSlash) + '/w256' +
+            imageUrl.substr(lastSlash);
+        return resizedUrl;
+      }
+
+      function batchRequests(queries) {
+        var httpBatch = gapi.client.newHttpBatch();
+        var query;
+        queries = queries.split(',');
+        for (var i = 0; i < queries.length; i++) {
+          // Trim whitespace
+          query = queries[i].replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+          var httpRequest = gapi.client.request({
+            'path': 'plus/v1/people',
+            'params': {'query': query}
+          });
+          httpBatch.add(httpRequest, {
+            id: 'query' + query,
+            callback: singleCallback
+          });
+        }
+        return httpBatch;
+      }
+
+      function singleCallback(resp, rawResp) {
+        console && console.log(resp);
+      }
+
+      function writeResponse(resp) {
+        var infoDiv = document.getElementById('info');
+        var result = resp.result;
+        if (!result.items) { return; }
+
+        var responseTitle = document.createElement('strong');
+        responseTitle.innerHTML = 'Profiles results for ' + resp.id + ':';
+        infoDiv.appendChild(responseTitle);
+
+        for (var i = 0; i < result.items.length ; i++) {
+          var profileResult = result.items[i];
+          var profileInfo = document.createElement('P');
+
+          if (profileResult.image && profileResult.image.url) {
+            var profilePic = document.createElement('IMG');
+            profilePic.src = resizeImage(profileResult.image.url);
+            profileInfo.appendChild(profilePic);
+          }
+
+          var profileLink = document.createElement('A');
+          profileLink.style.marginLeft = '5px';
+          profileLink.href = profileResult.url;
+          profileLink.innerHTML = profileResult.displayName;
+          profileInfo.appendChild(profileLink);
+
+          infoDiv.appendChild(profileInfo);
+        }
+      }
+
+      function batchCallback(resp, rawResp) {
+        var infoDiv = document.getElementById('info');
+        infoDiv.innerHTML = '';
+        for (var id in resp) {
+          writeResponse(resp[id]);
+        }
+      }
+
+      function makeRequest() {
+        var query = document.getElementById('query').value;
+        var rpcBatch = batchRequests(query);
+        rpcBatch.execute(batchCallback);
+      }
+    </script>
+    <script async defer src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){};handleClientLoad();"
+      onreadystatechange="if (this.readyState === 'complete') this.onload();">
+    </script>
+  </body>
+</html>
