@@ -85,6 +85,8 @@ Google APIs support [CORS](http://www.w3.org/TR/cors/). If your application need
 
 The JavaScript client library works with the same browsers supported by [Google Apps](https://support.google.com/a/answer/33864) except that mobile browsers are currently not fully supported. It only works within HTML documents with a `<body>` element served using the `https` _(preferred)_ and `http` protocols. However, `<iframe sandbox>` elements and other restricted execution contexts are not supported.
 
+Use of this JavaScript client library is not supported in Chrome Browser extensions using Manifest v3 due to the [No remotely hosted code](https://developer.chrome.com/docs/extensions/mv3/intro/mv3-overview/#remotely-hosted-code) requirement.
+
 [](#top_of_page)Setup
 ---------------------
 

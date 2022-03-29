@@ -29,3 +29,8 @@ The JavaScript client library does not directly support logging the user out of 
 Since logging out of the application also logs the user out of the Google account, it is not recommended to log the user out unless the user requests this explicitly.
 
 For a workaround that allows your application to log the user out programatically, see [this topic](https://groups.google.com/forum/?fromgroups=#!topic/google-api-javascript-client/PCs8xXV4wxk) in the JavaScript client library discussion group.
+
+
+### Is it possible to use the JavaScript client library in a Chrome Extension?
+
+Chrome Extensions using Manifest v3 do not allow [remotely hosted code](https://developer.chrome.com/docs/extensions/mv3/intro/mv3-overview/#remotely-hosted-code), so the Javascript client library cannot be used in this case.
