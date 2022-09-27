@@ -33,4 +33,3 @@ If you use TypeScript, you can install [`@types/gapi`](https://www.npmjs.com/pac
 ## Links
 
 - [Discussions](https://github.com/google/google-api-javascript-client/issues)
-- [Historical Announcements](http://google-api-javascript-client.blogspot.com/)
