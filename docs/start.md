@@ -11,7 +11,7 @@ There are several ways to use the JavaScript client library to make API requests
 2.  The application initializes the library with API key, OAuth client ID, and [API Discovery Document(s)](discovery.md).
 3.  The application sends a request and processes the response.
 
-The following sections show 3 common ways of using the JavaScript client library.
+The following sections show 2 common ways of using the JavaScript client library.
 
 ### Option 1: Load the API discovery document, then assemble the request.
 
@@ -75,10 +75,6 @@ function start() {
 gapi.load('client', start);
 </script>
 ```
-
-### Option 3: Use CORS
-
-Google APIs support [CORS](http://www.w3.org/TR/cors/). If your application needs to do media uploads and downloads, it should use CORS. See the [CORS Support](https://developers.google.com/api-client-library/javascript/features/cors) page for details.
 
 [](#top_of_page)Supported environments
 --------------------------------------
@@ -144,5 +140,3 @@ To keep your API keys secure, follow the [best practices for securely using API 
 
 1.  Open the [Credentials page](https://console.developers.google.com/apis/credentials) in the "APIs & Services" console.
 2.  Click **Create credentials > OAuth client ID** and select the appropriate Application type.
-
-For information about using OAuth 2.0 credentials, see the [Authentication](https://developers.google.com/api-client-library/javascript/features/authentication) page.

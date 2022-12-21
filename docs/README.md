@@ -9,7 +9,6 @@ access to many Google APIs.
 - [Getting Started](start.md)
 - [Auth](auth.md)
 - [Batch](batch.md)
-- [CORS](cors.md)
 - [Discovery Documents](discovery.md)
 - [FAQ](faq.md)
 - [Promises](promises.md)
