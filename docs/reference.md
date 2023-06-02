@@ -661,7 +661,7 @@ alert('gapi.client could not load in a timely manner!');
   </h4>
   <p>
     For more information about using promises, see
-    <a href="/api-client-library/javascript/features/promises">Using Promises</a>.
+    <a href="/docs/promises.md">Using Promises</a>.
   </p>
 </section>
 <section id="gapiclientRequestexecute">
