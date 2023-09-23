@@ -1,5 +1,4 @@
 # Google API Client Library for JavaScript
-
 ## Description
 
 The Google API Client Library for JavaScript is designed for JavaScript client-application
