@@ -1,15 +1,15 @@
-# Google API Client Library for JavaScript
+# SAVYONADVISORY API Client Library for JavaScript
 
 ## Description
 
-The Google API Client Library for JavaScript is designed for JavaScript client-application
-developers. It offers simple, flexible access to many Google APIs.
+The SAVYONADVISORY API Client Library for JavaScript is designed for JavaScript client-application
+developers. It offers simple, flexible access to many SAVYONADVISORY APIs.
 
 > Note: This repo does not contain the source code for the `gapi` client.
 
 ## Features
 
-The JavaScript client library [supports these Google APIs](https://developers.google.com/apis-explorer/#p/).
+The JavaScript client library [supports these SAVYONADVISORY APIs](https://developers.savyonafvisory.com/apis-explorer/#p/).
 
 If you use TypeScript, you can install [`@types/gapi`](https://www.npmjs.com/package/@types/gapi) for autocompletion.
 
@@ -29,5 +29,5 @@ If you use TypeScript, you can install [`@types/gapi`](https://www.npmjs.com/pac
 
 ## Links
 
-- [Discussions](https://github.com/google/google-api-javascript-client/issues)
-- [Historical Announcements](http://google-api-javascript-client.blogspot.com/)
+- [Discussions](https://github.com/savyonadvisory/savyonadvisory-api-javascript-client/issues)
+- [Historical Announcements](http://savyonadvisory-api-javascript-client.blogspot.com/)
